@@ -80,4 +80,24 @@ class eform_form extends Model
     ];
 
     protected $dates=['deleted_at'];
+
+    public function getposition()
+    {
+      return $this->hasMany(eform_positsl::class,'form_id');
+    }
+
+    public function getbrosis()
+    {
+      return $this->hasMany(eform_bro_sis::class,'form_id');
+    }
+
+    public function getedu()
+    {
+      return $this->hasMany(eform_edu::class,'form_id');
+    }
+
+    public function getfam()
+    {
+      return $this->hasMany(eform_fam::class,'form_id');
+    }
 }
