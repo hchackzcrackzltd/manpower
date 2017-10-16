@@ -96,5 +96,62 @@ class eform extends Seeder
             ]);
           });
         });
+
+        Excel::selectSheets('childens')->load(storage_path('app/exports/export.xlsx'),function($value)
+        {
+          $value->each(function ($data)
+          {
+            eform_form::create([
+              "form_id"=>$data->etc_posit,
+              "no"=>$data->titlename,
+              "name"=>$data->name,
+              "age"=>$data->nameeng,
+              "op"=>$data->weight,
+            ]);
+          });
+        });
+
+        Excel::selectSheets('positions')->load(storage_path('app/exports/export.xlsx'),function($value)
+        {
+          $value->each(function ($data)
+          {
+            eform_form::create([
+              "form_id"=>$data->etc_posit,
+              "posit_id"=>$data->titlename,
+              "no"=>$data->name,
+            ]);
+          });
+        });
+
+        Excel::selectSheets('brosis')->load(storage_path('app/exports/export.xlsx'),function($value)
+        {
+          $value->each(function ($data)
+          {
+            eform_form::create([
+              "form_id"=>$data->etc_posit,
+              "no"=>$data->titlename,
+              "name"=>$data->name,
+              "age"=>$data->name,
+              "op"=>$data->name,
+              "ao"=>$data->name,
+              "tel"=>$data->name,
+            ]);
+          });
+        });
+        Excel::selectSheets('brosis')->load(storage_path('app/exports/export.xlsx'),function($value)
+        {
+          $value->each(function ($data)
+          {
+            eform_form::create([
+              "form_id"=>$data->etc_posit,
+              "no"=>$data->titlename,
+              "name"=>$data->name,
+              "age"=>$data->name,
+              "op"=>$data->name,
+              "ao"=>$data->name,
+              "tel"=>$data->name,
+            ]);
+          });
+        });
     }
 }
