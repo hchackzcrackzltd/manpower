@@ -8,6 +8,8 @@ use App\Model\Eform\eform_his_job;
 use App\Model\Eform\eform_lang;
 use App\Model\Eform\eform_positsl;
 use App\Model\Eform\eform_trn;
+use App\Model\Eform\eform_file;
+use App\Model\Eform\eform_fam;
 use Maatwebsite\Excel\Facades\Excel;
 
 
@@ -101,12 +103,12 @@ class eform extends Seeder
         {
           $value->each(function ($data)
           {
-            eform_form::create([
-              "form_id"=>$data->etc_posit,
-              "no"=>$data->titlename,
+            eform_fam::create([
+              "form_id"=>$data->form_id,
+              "no"=>$data->no,
               "name"=>$data->name,
-              "age"=>$data->nameeng,
-              "op"=>$data->weight,
+              "age"=>$data->age,
+              "op"=>$data->op,
             ]);
           });
         });
@@ -115,10 +117,10 @@ class eform extends Seeder
         {
           $value->each(function ($data)
           {
-            eform_form::create([
-              "form_id"=>$data->etc_posit,
-              "posit_id"=>$data->titlename,
-              "no"=>$data->name,
+            eform_positsl::create([
+              "form_id"=>$data->form_id,
+              "posit_id"=>$data->posit_id,
+              "no"=>$data->no,
             ]);
           });
         });
@@ -127,29 +129,96 @@ class eform extends Seeder
         {
           $value->each(function ($data)
           {
-            eform_form::create([
-              "form_id"=>$data->etc_posit,
-              "no"=>$data->titlename,
+            eform_bro_sis::create([
+              "form_id"=>$data->form_id,
+              "no"=>$data->no,
               "name"=>$data->name,
-              "age"=>$data->name,
-              "op"=>$data->name,
-              "ao"=>$data->name,
-              "tel"=>$data->name,
+              "age"=>$data->age,
+              "op"=>$data->op,
+              "ao"=>$data->ao,
+              "tel"=>$data->tel,
             ]);
           });
         });
-        Excel::selectSheets('brosis')->load(storage_path('app/exports/export.xlsx'),function($value)
+
+        Excel::selectSheets('edu')->load(storage_path('app/exports/export.xlsx'),function($value)
         {
           $value->each(function ($data)
           {
-            eform_form::create([
-              "form_id"=>$data->etc_posit,
-              "no"=>$data->titlename,
+            eform_edu::create([
+              "form_id"=>$data->form_id,
+              "no"=>$data->no,
+              "edu_id"=>$data->edu_id,
               "name"=>$data->name,
-              "age"=>$data->name,
-              "op"=>$data->name,
-              "ao"=>$data->name,
-              "tel"=>$data->name,
+              "locat"=>$data->locat,
+              "startdate"=>$data->startdate,
+              "enddate"=>$data->enddate,
+              "ccd"=>$data->ccd,
+              "gpa"=>$data->gpa,
+              "ms"=>$data->ms,
+            ]);
+          });
+        });
+
+        Excel::selectSheets('hisjob')->load(storage_path('app/exports/export.xlsx'),function($value)
+        {
+          $value->each(function ($data)
+          {
+            eform_his_job::create([
+              "form_id"=>$data->form_id,
+              "no"=>$data->no,
+              "name"=>$data->name,
+              "type"=>$data->type,
+              "address"=>$data->address,
+              "strdate"=>$data->strdate,
+              "enddate"=>$data->enddate,
+              "posit"=>$data->posit,
+              "ref"=>$data->ref,
+              "rel"=>$data->rel,
+              "tel"=>$data->tel,
+              "resign"=>$data->resign,
+            ]);
+          });
+        });
+
+        Excel::selectSheets('lang')->load(storage_path('app/exports/export.xlsx'),function($value)
+        {
+          $value->each(function ($data)
+          {
+            eform_lang::create([
+              "form_id"=>$data->form_id,
+              "lang_id"=>$data->lang_id,
+              "type"=>$data->type,
+              "score"=>$data->score,
+            ]);
+          });
+        });
+
+        Excel::selectSheets('trn')->load(storage_path('app/exports/export.xlsx'),function($value)
+        {
+          $value->each(function ($data)
+          {
+            eform_trn::create([
+              "form_id"=>$data->form_id,
+              "no"=>$data->no,
+              "name"=>$data->name,
+              "ins"=>$data->ins,
+              "cr"=>$data->cr,
+              "dr"=>$data->dr,
+            ]);
+          });
+        });
+
+        Excel::selectSheets('file')->load(storage_path('app/exports/export.xlsx'),function($value)
+        {
+          $value->each(function ($data)
+          {
+            eform_file::create([
+              "form_id"=>$data->form_id,
+              "type"=>$data->type,
+              "no"=>$data->no,
+              "name"=>$data->name,
+              "temp"=>$data->temp,
             ]);
           });
         });
