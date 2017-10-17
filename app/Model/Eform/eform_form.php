@@ -74,9 +74,8 @@ class eform_form extends Model
   "startwk",
   "intf",
   "agg_data",
-  "status_req",
   "job_status",
-  "age",
+  "age","eq","iq","mbti",
     ];
 
     protected $dates=['deleted_at'];
@@ -99,5 +98,25 @@ class eform_form extends Model
     public function getfam()
     {
       return $this->hasMany(eform_fam::class,'form_id');
+    }
+
+    public function gethisjob()
+    {
+      return $this->hasMany(eform_his_job::class,'form_id');
+    }
+
+    public function getlang()
+    {
+      return $this->hasMany(eform_lang::class,'form_id');
+    }
+
+    public function gettrn()
+    {
+      return $this->hasMany(eform_trn::class,'form_id');
+    }
+
+    public function getfile()
+    {
+      return $this->hasMany(eform_file::class,'form_id');
     }
 }

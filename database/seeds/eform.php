@@ -28,7 +28,7 @@ class eform extends Seeder
           {
             eform_form::create([
               "etc_posit"=>$data->etc_posit,
-              "titlename"=>$data->titlename,
+              "titlename"=>(empty($data->titlename))?0:$data->titlename,
               "name"=>$data->name,
               "nameeng"=>$data->nameeng,
               "weight"=>$data->weight,
@@ -92,9 +92,11 @@ class eform extends Seeder
               "startwk"=>$data->startwk,
               "intf"=>$data->intf,
               "agg_data"=>$data->agg_data,
-              "status_req"=>$data->status_req,
               "job_status"=>$data->job_status,
               "age"=>$data->age,
+              "eq"=>$data->eq,
+              "iq"=>$data->iq,
+              "mbti"=>$data->mbti,
             ]);
           });
         });
@@ -105,7 +107,7 @@ class eform extends Seeder
           {
             eform_fam::create([
               "form_id"=>$data->form_id,
-              "no"=>$data->no,
+              "no"=>(empty($data->no))?0:$data->no,
               "name"=>$data->name,
               "age"=>$data->age,
               "op"=>$data->op,
@@ -119,8 +121,8 @@ class eform extends Seeder
           {
             eform_positsl::create([
               "form_id"=>$data->form_id,
+              "no"=>(empty($data->no))?0:$data->no,
               "posit_id"=>$data->posit_id,
-              "no"=>$data->no,
             ]);
           });
         });
@@ -131,7 +133,7 @@ class eform extends Seeder
           {
             eform_bro_sis::create([
               "form_id"=>$data->form_id,
-              "no"=>$data->no,
+              "no"=>(empty($data->no))?0:$data->no,
               "name"=>$data->name,
               "age"=>$data->age,
               "op"=>$data->op,
@@ -147,7 +149,7 @@ class eform extends Seeder
           {
             eform_edu::create([
               "form_id"=>$data->form_id,
-              "no"=>$data->no,
+              "no"=>(empty($data->no))?0:$data->no,
               "edu_id"=>$data->edu_id,
               "name"=>$data->name,
               "locat"=>$data->locat,
@@ -166,7 +168,7 @@ class eform extends Seeder
           {
             eform_his_job::create([
               "form_id"=>$data->form_id,
-              "no"=>$data->no,
+              "no"=>(empty($data->no))?0:$data->no,
               "name"=>$data->name,
               "type"=>$data->type,
               "address"=>$data->address,
@@ -189,7 +191,7 @@ class eform extends Seeder
               "form_id"=>$data->form_id,
               "lang_id"=>$data->lang_id,
               "type"=>$data->type,
-              "score"=>$data->score,
+              "score"=>(empty($data->score))?0:$data->score,
             ]);
           });
         });
@@ -200,7 +202,7 @@ class eform extends Seeder
           {
             eform_trn::create([
               "form_id"=>$data->form_id,
-              "no"=>$data->no,
+              "no"=>(empty($data->no))?0:$data->no,
               "name"=>$data->name,
               "ins"=>$data->ins,
               "cr"=>$data->cr,
@@ -216,7 +218,7 @@ class eform extends Seeder
             eform_file::create([
               "form_id"=>$data->form_id,
               "type"=>$data->type,
-              "no"=>$data->no,
+              "no"=>(empty($data->no))?0:$data->no,
               "name"=>$data->name,
               "temp"=>$data->temp,
             ]);

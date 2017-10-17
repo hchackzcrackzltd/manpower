@@ -10,7 +10,9 @@ class CandidateSearch extends Controller
 {
     public function index()
     {
-        return view('user.candidate.index',['data'=>eform_form::all()]);
+        return view('user.candidate.index',['data'=>eform_form::with([
+          'getposition','getbrosis','getedu','getfam','gethisjob','getlang',
+          'gettrn','getfile'])->get()]);
     }
 
     public function search(Request $req)

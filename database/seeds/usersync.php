@@ -13,6 +13,7 @@ class usersync extends Seeder
      */
     public function run()
     {
+      User::truncate();
         $data=employee::find('DDD00102');
         User::create([
           'username'=>$data->code,

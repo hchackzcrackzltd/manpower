@@ -20,5 +20,6 @@ class DatabaseSeeder extends Seeder
       $this->call(functionmaster::class);
       $this->call(status::class);
       $this->call(reason_emp::class);
+      //$this->call(eform::class);
     }
 }

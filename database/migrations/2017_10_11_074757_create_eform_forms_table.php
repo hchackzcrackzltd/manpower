@@ -82,6 +82,9 @@ class CreateEformFormsTable extends Migration
             $table->text("intf")->nullable();
             $table->boolean("agg_data");
             $table->boolean("job_status")->nullable();
+            $table->integer("eq")->nullable();
+            $table->integer("iq")->nullable();
+            $table->string("mbti")->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
