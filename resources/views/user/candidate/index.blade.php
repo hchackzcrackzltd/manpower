@@ -92,7 +92,7 @@
                         </div>
                         <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
                             <a href="http://"><b>{{$value->getposition->first()->posit_id}}</b></a><br>
-                            <b>Age: </b><br>
+                            <b>Age: </b>{{$value->age}}<br>
                             <b>Experience: </b><br>
                         </div>
                     </div>
