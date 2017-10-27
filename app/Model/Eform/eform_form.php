@@ -102,7 +102,7 @@ class eform_form extends Model
 
     public function gethisjob()
     {
-      return $this->hasMany(eform_his_job::class,'form_id');
+      return $this->hasMany(eform_hisjob_view::class,'form_id');
     }
 
     public function getlang()

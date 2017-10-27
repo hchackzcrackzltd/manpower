@@ -85,6 +85,7 @@ class CreateEformFormsTable extends Migration
             $table->integer("eq")->nullable();
             $table->integer("iq")->nullable();
             $table->string("mbti")->nullable();
+            $table->date("pub_enddate")->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

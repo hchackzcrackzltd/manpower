@@ -26,7 +26,7 @@ class eform extends Seeder
         {
           $value->each(function ($data)
           {
-            eform_form::create([
+            $id=eform_form::create([
               "etc_posit"=>$data->etc_posit,
               "titlename"=>(empty($data->titlename))?0:$data->titlename,
               "name"=>$data->name,
