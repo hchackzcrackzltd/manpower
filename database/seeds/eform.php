@@ -19,6 +19,8 @@ use App\Model\Eform_ref\form_nation;
 use App\Model\Eform_ref\form_provin;
 use App\Model\Eform_ref\master_lang;
 use App\Model\Eform_ref\master_mstatuse;
+use App\Model\Eform\tagcandidate;
+use Carbon\Carbon;
 
 
 class eform extends Seeder
@@ -32,6 +34,7 @@ class eform extends Seeder
     {
         $getdata=Excel::selectSheets('main','childens','positions','brosis','edu','hisjob','lang','trn','file')->load(storage_path('app/exports/export.xlsx'))->get();
         foreach ($getdata[0] as $data) {
+          $positcl=[];$educl=[];$exp=0;
           $id=eform_form::create([
             "etc_posit"=>$data->etc_posit,
             "titlename"=>(empty($data->titlename))?0:$data->titlename,
@@ -119,6 +122,7 @@ class eform extends Seeder
               "no"=>(empty($position->no))?0:$position->no,
               "posit_id"=>$position->posit_id,
             ]);
+            $positcl[]=$position->posit_id;
           }
           foreach ($getdata[3]->where('form_id',$data->id_form) as $brosis) {
             eform_bro_sis::create([
@@ -144,6 +148,7 @@ class eform extends Seeder
               "gpa"=>$edu->gpa,
               "ms"=>$edu->ms,
             ]);
+            $educl[]=$edu->edu_id;
           }
           foreach ($getdata[5]->where('form_id',$data->id_form) as $hisjob) {
             eform_his_job::create([
@@ -155,11 +160,14 @@ class eform extends Seeder
               "strdate"=>$hisjob->strdate,
               "enddate"=>$hisjob->enddate,
               "posit"=>$hisjob->posit,
+              "respon"=>$hisjob->respon,
               "ref"=>$hisjob->ref,
               "rel"=>$hisjob->rel,
               "tel"=>$hisjob->tel,
               "resign"=>$hisjob->resign,
             ]);
+            $dt=Carbon::parse($hisjob->strdate);
+            $exp+=Carbon::parse($hisjob->enddate)->diffInYears($dt);
           }
           foreach ($getdata[6]->where('form_id',$data->id_form) as $lang) {
             eform_lang::create([
@@ -188,6 +196,14 @@ class eform extends Seeder
               "temp"=>$file->temp,
             ]);
           }
+          tagcandidate::create([
+            'posit'=>implode(',',$positcl),'exp'=>$exp,
+            'edu'=>implode(',',$educl),
+            'sex'=>(empty($data->titlename))?0:$data->titlename,
+            'eq'=>(empty($data->eq))?0:$data->eq,'iq'=>(empty($data->iq))?0:$data->iq,
+            'form_id'=>$id->id,
+            'age'=>$data->age
+          ]);
         }
     }
 }

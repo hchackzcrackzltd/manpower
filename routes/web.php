@@ -45,7 +45,9 @@ Route::group(['prefix'=>'user','middleware'=>['auth','checktype']],function(){
   Route::get('approveu/manpower/{id}/view','User\ApproveUser@manpage')->name('approveu.manpage');
   Route::get('approveu/resign/{id}/view','User\ApproveUser@rsgpage')->name('approveu.rsgpage');
   Route::get('approveu/aprovel/{value}','User\Manpowerreq@approvel')->name('approveu.aprovel');
-  Route::get('candidatesearch','User\CandidateSearch@index')->name('candidatesh.index');
+  Route::get('candidate','User\CandidateSearch@index')->name('candidatesh.index');
+  Route::post('candidate/search','User\CandidateSearch@search')->name('candidatesh.search');
+  Route::get('candidate/{id}','User\CandidateSearch@detail')->name('candidatesh.detail');
 });
 
 Route::group(['prefix'=>'admin','middleware'=>['auth','checkuser']],function(){

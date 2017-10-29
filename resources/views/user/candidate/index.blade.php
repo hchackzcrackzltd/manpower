@@ -6,6 +6,10 @@
 <i class="fa fa-users"></i> Candidate
 @endsection
 
+@section('breadcrumb')
+  <li class="active"><i class="fa fa-users"></i> Candidate</li>
+@endsection
+
 @section('subtitle',null)
 
 @section('content')
@@ -17,74 +21,70 @@
             <i class="fa fa-search"></i> Search
           @endslot
           @slot('overlay','')
-          <form action="" method="get">
-          <div class="col-xs-12 col-sm-6 col-lg-4">
+          <form action="{{route('candidatesh.search')}}" method="POST" enctype="multipart/form-data">
+            {{csrf_field()}}
+          <div class="col-xs-12 col-sm-7 col-lg-8">
                   <div class="form-group">
                       <label for="po">Position</label>
                       <div class="input-group">
                           <div class="input-group-addon"><i class="fa fa-briefcase"></i></div>
                           <select name="posit" id="po" class="form-control">
-                              <option value=""></option>
+                            @foreach ($ref_posit as $key => $value)
+                              <option value="{{$value->id}}">{{$value->name}}</option>
+                            @endforeach
                           </select>
                       </div>
                   </div>
           </div>
-          <div class="col-xs-12 col-sm-6 col-lg-4">
+          <div class="col-xs-12 col-sm-5 col-lg-4">
+                  <div class="form-group">
+                    <label for="sx">Sex</label>
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="fa fa-male"></i><i class="fa fa-female"></i></div>
+                        <select name="sex" id="sx" class="form-control">
+                            <option value="100">All</option>
+                            <option value="0">นาย Mr.</option>
+                            <option value="1">นาง Mrs.</option>
+                            <option value="2">นางสาว Miss.</option>
+                        </select>
+                    </div>
+                      </div>
+          </div>
+          <div class="col-xs-12">
                   <div class="form-group">
                           <label for="ed">Education</label>
                           <div class="input-group">
                               <div class="input-group-addon"><i class="fa fa-mortar-board"></i></div>
-                              <select name="edu" id="ed" class="form-control">
-                                  <option value=""></option>
+                              <select name="edu[]" id="ed" class="form-control" multiple>
+                                @foreach ($ref_edu as $value)
+                                  <option value="{{$value->id}}">{{$value->name}}</option>
+                                @endforeach
                               </select>
                           </div>
                       </div>
           </div>
-          <div class="col-xs-12 col-sm-4 col-lg-4">
-                  <div class="form-group">
-                          <label for="ex">Experience</label>
-                          <div class="input-group">
-                              <div class="input-group-addon"><i class="fa fa-bullseye"></i></div>
-                              <input type="number" name="exp" id="ex" class="form-control" placeholder="Year">
-                          </div>
-                      </div>
-          </div>
-          <div class="col-xs-12 col-sm-4 col-lg-3">
+          <div class="col-xs-12 col-lg-6">
                   <div class="form-group">
                           <label for="ag">Age</label>
-                          <div class="input-group">
-                              <div class="input-group-addon"><i class="fa fa-male"></i></div>
-                              <input type="number" name="age" id="ag" class="form-control" placeholder="Year">
-                          </div>
+                              <input type="text" name="age" id="age">
                       </div>
           </div>
-          <div class="col-xs-12 col-sm-4 col-lg-3">
+          <div class="col-xs-12 col-lg-6">
                   <div class="form-group">
-                          <label for="sx">Sex</label>
-                          <div class="input-group">
-                              <div class="input-group-addon"><i class="fa fa-male"></i><i class="fa fa-female"></i></div>
-                              <select name="sex" id="sx" class="form-control">
-                                  <option value=""></option>
-                              </select>
-                          </div>
+                    <label for="ex">Experience</label>
+                    <input type="text" name="exp" id="exp">
                       </div>
           </div>
-          <div class="col-xs-12 col-sm-6 col-lg-3">
+          <div class="col-xs-12 col-lg-6">
                   <div class="form-group">
                           <label for="ag">EQ</label>
-                          <div class="input-group">
-                              <div class="input-group-addon"><i class="fa fa-male"></i></div>
-                              <input type="number" name="eq" id="eq" class="form-control" placeholder="EQ Score">
-                          </div>
+                          <input type="text" name="eq" id="eq">
                       </div>
           </div>
-          <div class="col-xs-12 col-sm-6 col-lg-3">
+          <div class="col-xs-12 col-lg-6">
                   <div class="form-group">
                           <label for="ag">IQ</label>
-                          <div class="input-group">
-                              <div class="input-group-addon"><i class="fa fa-male"></i></div>
-                              <input type="number" name="iq" id="iq" class="form-control" placeholder="IQ Score">
-                          </div>
+                          <input type="text" name="iq" id="iq">
                       </div>
           </div>
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right">
@@ -109,16 +109,16 @@
                             <img src="{{asset('img/No_image_available.png')}}" class="img-responsive" alt="Image">
                         </div>
                         <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                            <a href="http://"><b>{{$value->getposition->first()->posit_id}}</b></a><br>
+                            <a href="{{route('candidatesh.detail',['id'=>$value->id])}}" target="_blank"><b>{{(count($value->getposition)>0)?$ref_posit->where('id',$value->getposition->first()->posit_id)->first()->name:'N/A'}}</b></a><br>
                             <b>Age: </b>{{$value->age}}<br>
-                            <b>Experience: </b> {{$value->gethisjob->sum('exp')}}<br>
+                            <b>Experience: </b> {{(count($value->gethisjob)>0)?$value->gethisjob->sum('exp'):0}}<br>
                         </div>
                     </div>
                     <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
                       <div class="col-xs-12">
                           <b>Education:</b>
                         @forelse ($value->getedu as $edu)
-                            <p>{{$edu->edu_id}},</p>
+                            <p>{{$ref_edu->where('id',$edu->edu_id)->first()->name}},</p>
                         @empty
                           <p>No Education Data</p>
                         @endforelse
@@ -135,7 +135,7 @@
                     </div>
                     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-center">
                         <div class="btn-group">
-                            <button type="button" class="btn btn-info" title="Detail"><i class="fa fa-file-text-o"></i></button>
+                            <a type="button" class="btn btn-info" title="Detail" href="{{route('candidatesh.detail',['id'=>$value->id])}}" target="_blank"><i class="fa fa-file-text-o"></i></a>
                             <button type="button" class="btn btn-success" title="Interest">
                               <i class="fa fa-check"></i>
                             </button>
@@ -158,6 +158,38 @@
   $(function() {
     $('select').select2({
       placeholder:'Plase Select'
+    });
+    $('#age').ionRangeSlider({
+      type: "double",
+      grid: true,
+      min: 20,
+      max: 60,
+      postfix: " Year",
+      decorate_both: true
+    });
+    $('#exp').ionRangeSlider({
+      type: "double",
+      grid: true,
+      min: 0,
+      max: 40,
+      postfix: " Year",
+      decorate_both: true
+    });
+    $('#iq').ionRangeSlider({
+      type: "double",
+      grid: true,
+      min: 0,
+      max: 80,
+      postfix: " Score",
+      decorate_both: true
+    });
+    $('#eq').ionRangeSlider({
+      type: "double",
+      grid: true,
+      min: 0,
+      max: 80,
+      postfix: " Score",
+      decorate_both: true
     });
   });
   </script>

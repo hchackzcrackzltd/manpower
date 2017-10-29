@@ -11,7 +11,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-      /*$this->call(offac::class);
+      $this->call(offac::class);
       $this->call(location::class);
       $this->call(emailgroup::class);
       $this->call(employee_resign::class);
@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
       $this->call(company::class);
       $this->call(functionmaster::class);
       $this->call(status::class);
-      $this->call(reason_emp::class);*/
+      $this->call(reason_emp::class);
       $this->call(eform::class);
     }
 }
