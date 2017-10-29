@@ -136,7 +136,7 @@
                     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-center">
                         <div class="btn-group">
                             <a type="button" class="btn btn-info" title="Detail" href="{{route('candidatesh.detail',['id'=>$value->id])}}" target="_blank"><i class="fa fa-file-text-o"></i></a>
-                            <button type="button" class="btn btn-success" title="Interest">
+                            <button type="button" class="btn btn-success hide" title="Interest">
                               <i class="fa fa-check"></i>
                             </button>
                         </div>
