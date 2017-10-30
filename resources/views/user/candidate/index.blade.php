@@ -1,5 +1,7 @@
 @extends('template.mainuser')
 
+@inject('myjoblist','App\Model\User\user_dashboard_detail')
+
 @section('titlepage','Candidate')
 
 @section('title')
@@ -135,8 +137,8 @@
                     </div>
                     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-center">
                         <div class="btn-group">
-                            <a type="button" class="btn btn-info" title="Detail" href="{{route('candidatesh.detail',['id'=>$value->id])}}" target="_blank"><i class="fa fa-file-text-o"></i></a>
-                            <button type="button" class="btn btn-success hide" title="Interest">
+                            <a type="button" class="btn btn-primary" title="Detail" href="{{route('candidatesh.detail',['id'=>$value->id])}}" target="_blank"><i class="fa fa-file-text-o"></i></a>
+                            <button type="button" class="btn btn-success" title="Interest" data-toggle="modal" data-target='#job'>
                               <i class="fa fa-check"></i>
                             </button>
                         </div>
@@ -151,13 +153,46 @@
           @endcomponent
       </div>
   </div>
+  <div class="modal fade job" id="job" tabindex="-1" role="dialog" aria-labelledby="job" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <form action="{{route('candidatesh.send')}}" method="POST">
+      <div class="modal-content">
+        <div class="modal-header bg-primary">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title"><i class="fa fa-tasks"></i> Select Position Interview</h4>
+        </div>
+        <div class="modal-body">
+          <div class="col-xs-12">
+              {{csrf_field()}}
+            <div class="form-group">
+              <label for="reqf">Position List</label>
+              <select class="form-control" name="req" id="reqf">
+                @forelse ($myjoblist->userown()->status('AJ') as $value)
+                  <option value="{{$value->id}}">{{$value->position}}</option>
+                @empty
+                  <option disabled>No Request</option>
+                @endforelse
+              </select>
+              <p class="help-block">Plase Select Position Request To Notify HR</p>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+          <button type="submit" class="btn btn-success"><i class="fa fa-paper-plane"></i> Send</button>
+        </div>
+      </div>
+      </form>
+    </div>
+  </div>
 @endsection
 
 @section('script')
   <script>
   $(function() {
     $('select').select2({
-      placeholder:'Plase Select'
+      placeholder:'Plase Select',
+      width:'100%'
     });
     $('#age').ionRangeSlider({
       type: "double",

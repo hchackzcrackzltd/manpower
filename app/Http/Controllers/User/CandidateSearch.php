@@ -51,4 +51,10 @@ class CandidateSearch extends Controller
         'master_lang'=>['ไม่ได้เลย Poor','พอใช้  Fair','ดี  Good','ดีมาก Excellent']
         ]);
     }
+
+    public function send(Request $req)
+    {
+      $this->validate($req,['req'=>'required|exists:user_dashboard_details,id'],['req.required'=>'Plase Select Position']);
+      return redirect()->route('candidatesh.index')->with(['success'=>'Request Sended']);
+    }
 }

@@ -30,6 +30,7 @@ class CreateResignsTable extends Migration
             $table->text('comment')->nullable();
             $table->text('em_remark')->nullable();
             $table->boolean('approve');
+            $table->string('docnum')->unique();
             $table->timestamps();
             $table->softDeletes();
         });

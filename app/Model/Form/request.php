@@ -17,7 +17,7 @@ class request extends Model
     ,'com_id','sw','sw_etc_spc','ac','ac_etc_spc','fedc','car','car_lp','nmc','ofa'
     ,'user_id','status','user_em_id','remark','time_agn','rate','comment','emp_name'
     ,'emp_name_th','date_work','em_remark','em_type','location','company','rfm_nfb'
-    ,'approve','imd_id','rfm_emp_id'];
+    ,'approve','imd_id','rfm_emp_id','docnum'];
 
     public function getmyapp()
     {

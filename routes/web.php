@@ -48,6 +48,7 @@ Route::group(['prefix'=>'user','middleware'=>['auth','checktype']],function(){
   Route::get('candidate','User\CandidateSearch@index')->name('candidatesh.index');
   Route::post('candidate/search','User\CandidateSearch@search')->name('candidatesh.search');
   Route::get('candidate/{id}','User\CandidateSearch@detail')->name('candidatesh.detail');
+  Route::post('candidate/send','User\CandidateSearch@send')->name('candidatesh.send');
 });
 
 Route::group(['prefix'=>'admin','middleware'=>['auth','checkuser']],function(){

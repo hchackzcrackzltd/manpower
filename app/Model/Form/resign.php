@@ -12,7 +12,7 @@ class resign extends Model
   public $dates=['deleted_at'];
     protected $fillable=['id','user_id','user_em_id','time_str','time_agn',
     'time_end','effect_date','status','remark','rate','comment','em_remark'
-    ,'code','last_date','reason','approve'];
+    ,'code','last_date','reason','approve','docnum'];
 
     public function getmyapp()
     {

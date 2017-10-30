@@ -23,6 +23,11 @@ class user_dashboard_detail extends Model
     return $query->where('user_id','!=',Auth::user()->username);
   }
 
+  public function scopeStatus($query,$data)
+  {
+    return $query->where('status',$data);
+  }
+
   public function getemp(){
     return $this->hasMany('App\Model\Form\employee_new','id','id');
   }
