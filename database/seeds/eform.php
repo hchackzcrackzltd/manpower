@@ -106,6 +106,8 @@ class eform extends Seeder
             "eq"=>$data->eq,
             "iq"=>$data->iq,
             "mbti"=>$data->mbti,
+            'interest'=>0,
+            'status_can'=>'OP'
           ]);
           foreach ($getdata[1]->where('form_id',$data->id_form) as $childen) {
             eform_fam::create([

@@ -1,14 +1,14 @@
 @extends('template.admin.mainadmin')
-@section('titlepage','Candidate')
+@section('titlepage','History')
 @section('munu_act4','active')
 
 @section('title_head')
-  <i class="fa fa-user"></i> Candidate
+  <i class="fa fa-history"></i> History
 @endsection
 
 @section('breadcrumb')
   <li>Candidate</li>
-  <li class="active">List Candidate</li>
+  <li class="active">History</li>
 @endsection
 
 @section('content')
@@ -21,19 +21,6 @@
         @endslot
         @slot('overlay',null)
           <div class="row">
-            <div class="col-xs-12 form-inline">
-              <form action="{{route('cannidate_new.create')}}" method="post" enctype="multipart/form-data">
-                {{csrf_field()}}
-                  <div class="form-group">
-                    <label for="fim">Insert File</label>
-                    <input type="file" class="form-control" name="file_im" id="fim" required>
-                  </div>
-                  <button type="submit" class="btn btn-success" title="Import Candidate From Application Form" data-toggle="tooltip">
-                    <i class="fa fa-download"></i> Import
-                  </button>
-                  <label class="label label-warning"><i class="fa fa-warning"></i> (Support File Export From Appplication Form Only)</label><br><br>
-                  </form>
-            </div>
             <div class="col-xs-12">
               <div class="table-responsive">
                 <table class="table table-condensed table-striped table-hover text-center">
@@ -61,16 +48,21 @@
                       </td>
                       <td><span class="badge">{{$value->interest}}</span></td>
                       <td>
-                        <form action="{{route('cannidate_new.destroy',['id'=>$value->id])}}" method="post">
+                        <form action="{{route('cannidate_new.history_del',['id'=>$value->id])}}" method="post" name="delete" id="delete">
                           {{csrf_field()}}
                           {{method_field('DELETE')}}
+                          </form>
+                        <form action="{{route('cannidate_new.history_rev',['id'=>$value->id])}}" method="post" name="restore" id="restore">
+                          {{csrf_field()}}
+                          {{method_field('PATCH')}}
+                          </form>
                         <div class="btn-group">
                           <a class="btn btn-info" title="Resume" target="_blank" href="{{route('cannidate_new.detail',['id'=>$value->id])}}" data-toggle="tooltip">
                             <i class="fa fa-file-text-o"></i>
                           </a>
-                          <button type="submit" class="btn btn-success" title="Candidate Select" data-toggle="tooltip"><i class="fa fa-check"></i></button>
+                          <button type="submit" class="btn bg-purple" title="Recovery Candidate" data-toggle="tooltip" form="restore"><i class="fa fa-repeat"></i></button>
+                          <button type="submit" class="btn btn-danger" title="Delete Candidate" data-toggle="tooltip" form="delete"><i class="fa fa-trash-o"></i></button>
                         </div>
-                        </form>
                       </td>
                     </tr>
                     @endforeach

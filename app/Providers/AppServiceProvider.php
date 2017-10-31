@@ -19,7 +19,8 @@ class AppServiceProvider extends ServiceProvider
         Validator::extend('checkmem','App\validation_user\memreq@checkmemdup');
         Validator::extend('checkdpdup','App\validation_user\dupdpreq@checkdupdp');
         View::composer(['template.mainuser'],'App\View\authorize');
-        View::composer(['user.candidate.index','user.candidate.candidate_detail'],'App\View\eform_ref');
+        View::composer(['user.candidate.index','user.candidate.candidate_detail',
+        'admin.candidate.index_list','admin.candidate.candidate_detail','admin.candidate.list_history'],'App\View\eform_ref');
     }
 
     /**

@@ -16,7 +16,9 @@
     </a>
     <ul class="treeview-menu">
       <li><a href="{{route('cannidate.index')}}"><i class="fa fa-user"></i> List Cannidate</a></li>
+      <li><a href="{{route('cannidate_new.index')}}"><i class="fa fa-users"></i> List Candidate</a></li>
       <li><a href="{{route('cannidate.history')}}"><i class="fa fa-history"></i> History</a></li>
+      <li><a href="{{route('cannidate_new.history')}}"><i class="fa fa-history"></i> History</a></li>
     </ul>
   </li>
   <li class="@yield('munu_act3')">

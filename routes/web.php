@@ -82,6 +82,14 @@ Route::group(['prefix'=>'admin','middleware'=>['auth','checkuser']],function(){
   Route::get('setting/approve/member/{depid}','Admin\approve@indexdep')->name('approve.indexdep');
   Route::get('setting/approve/getemployee/{emp}','Admin\approve@getemployee')->name('approve.emp');
   Route::post('setting/approve/member','Admin\approve@storemem')->name('approve.storemem');
+  //new_candidate
+  Route::get('setting/cannidate_new','Admin\candidate_efm@index')->name('cannidate_new.index');
+  Route::post('setting/cannidate_new','Admin\candidate_efm@create')->name('cannidate_new.create');
+  Route::get('setting/cannidate_new/detail/{id}','Admin\candidate_efm@detail')->name('cannidate_new.detail');
+  Route::delete('setting/cannidate_new/close/{id}','Admin\candidate_efm@destroy')->name('cannidate_new.destroy');
+  Route::get('setting/cannidate_new/history','Admin\candidate_efm@history')->name('cannidate_new.history');
+  Route::patch('setting/cannidate_new/history/{id}','Admin\candidate_efm@recover')->name('cannidate_new.history_rev');
+  Route::delete('setting/cannidate_new/history/{id}','Admin\candidate_efm@destroy_his')->name('cannidate_new.history_del');
 });
 
 Auth::routes();

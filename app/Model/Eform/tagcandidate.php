@@ -3,9 +3,11 @@
 namespace App\Model\Eform;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class tagcandidate extends Model
 {
+  use SoftDeletes;
     protected $fillable=['form_id','posit','exp','edu','sex','eq','iq','age'];
     public $timestamps=false;
 
