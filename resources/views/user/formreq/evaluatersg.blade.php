@@ -262,7 +262,7 @@
 @section('script')
   <script>
     $(function() {
-      $('table').DataTable();
+      $('.table').DataTable();
       $('.se-detail').select2({
         width:'100%'
       });

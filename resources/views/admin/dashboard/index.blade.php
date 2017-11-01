@@ -212,7 +212,7 @@
 @section('script')
   <script>
     $(function() {
-      $('table').DataTable({
+      $('.table').DataTable({
         order: [[ 0, "desc" ]]
     });
       $('.table').on('click','.btn-desc', function(event) {

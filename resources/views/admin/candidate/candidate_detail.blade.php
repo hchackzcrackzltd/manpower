@@ -25,7 +25,7 @@
   <div class="row">
     <div class="col-xs-6">
       @if ($data->getfile->where('type', 2)->first())
-        <img src="{{asset('img/No_image_available.png')}}" alt="Picture Profile" class="img-circle col-xs-5"><br><br>
+        <img src="data:{{Storage::disk('local')->mimeType('exports/'.$data->getfile->where('type', 2)->first()->temp)}};base64,{{base64_encode(Storage::disk('local')->get('exports/'.$data->getFile->where('type', 2)->first()->temp))}}" alt="Picture Profile" class="img-circle col-xs-5"><br><br>
       @else
         <img src="{{asset('img/No_image_available.png')}}" class="img-circle col-xs-5" alt="Picture">
       @endif

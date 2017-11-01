@@ -108,7 +108,11 @@
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
                         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                          @if ($value->getfile->first())
+                            <img src="data:{{Storage::disk('local')->mimeType('exports/'.$value->getfile->where('type', 2)->first()->temp)}};base64,{{base64_encode(Storage::disk('local')->get('exports/'.$value->getfile->where('type', 2)->first()->temp))}}" class="img-responsive img-thumbnail img-rounded" alt="Image">
+                          @else
                             <img src="{{asset('img/No_image_available.png')}}" class="img-responsive" alt="Image">
+                          @endif
                         </div>
                         <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
                             <a href="{{route('candidatesh.detail',['id'=>$value->id])}}" target="_blank"><b>{{(count($value->getposition)>0)?$ref_posit->where('id',$value->getposition->first()->posit_id)->first()->name:'N/A'}}</b></a><br>

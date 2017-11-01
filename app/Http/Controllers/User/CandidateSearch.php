@@ -15,7 +15,7 @@ class CandidateSearch extends Controller
           'getposition'=>function($value)
           {
             $value->where('no',0);
-          },'getedu','gethisjob'])->get()]);
+          },'getedu','gethisjob','getfile'])->get()]);
     }
 
     public function search(Request $req)

@@ -79,7 +79,7 @@
 @section('script')
   <script>
   $(function(){
-    $('table').DataTable();
+    $('.table').DataTable();
   });
   </script>
 @endsection

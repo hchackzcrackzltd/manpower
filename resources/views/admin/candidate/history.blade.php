@@ -80,7 +80,7 @@
 @section('script')
   <script>
   $(function(){
-    $('table').DataTable();
+    $('.table').DataTable();
     $('.table').on('click','.desc', function(event) {
       var id=$(this).attr('data-id');
       var table,selec,cp;
@@ -95,7 +95,7 @@
         if (typeof cp!=='undefined') {
           cp.destroy();
         }
-        table=$('table').DataTable();
+        table=$('.table').DataTable();
         selec=$('.se2').select2({width:'100%'});
         cp=new Clipboard('.btncp');
       }).fail(function() {
