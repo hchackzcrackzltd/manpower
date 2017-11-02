@@ -90,6 +90,7 @@ Route::group(['prefix'=>'admin','middleware'=>['auth','checkuser']],function(){
   Route::get('setting/cannidate_new/history','Admin\candidate_efm@history')->name('cannidate_new.history');
   Route::patch('setting/cannidate_new/history/{id}','Admin\candidate_efm@recover')->name('cannidate_new.history_rev');
   Route::delete('setting/cannidate_new/history/{id}','Admin\candidate_efm@destroy_his')->name('cannidate_new.history_del');
+  Route::get('setting/cannidate_new/atth_detail/{id}/{no}','Admin\candidate_efm@getattech')->name('cannidate_new.getimg');
 });
 
 Auth::routes();

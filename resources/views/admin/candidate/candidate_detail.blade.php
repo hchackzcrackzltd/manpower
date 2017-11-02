@@ -580,7 +580,7 @@
             @forelse ($data->getfile->where('type',1) as $value)
               <tr>
                 <td>{{$loop->index+1}}</td>
-                <td><a href="" target="_blank">{{$value->name}}</a></td>
+                <td><a href="{{route('cannidate_new.getimg',['id'=>$data->id,'no'=>$value->no])}}" target="_blank">{{$value->name}}</a></td>
               </tr>
               @empty
                 <tr>
