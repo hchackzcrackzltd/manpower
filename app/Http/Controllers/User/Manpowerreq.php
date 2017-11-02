@@ -38,6 +38,12 @@ class Manpowerreq extends Controller
     $id=reqfm::withTrashed()->where('id', 'LIKE', Carbon::now()->format('ymd').'%')->max('id');
     return (isset($id))?$id+1:Carbon::now()->format('ymd').'001';
   }
+/*------Document Number---------*/
+  protected function docnum()
+  {
+
+  }
+  /*------Document Number---------*/
   protected function makeapprove(reqfm $data,int $fid)
   {
     $appraw=approve_func::getmydep($fid)->first();

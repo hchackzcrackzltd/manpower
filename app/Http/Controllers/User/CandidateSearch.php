@@ -52,6 +52,13 @@ class CandidateSearch extends Controller
         ]);
     }
 
+    public function getattech(eform_form $id,$no)
+    {
+      $fm=$id->load('getfile');
+      $ext=$fm->getfile->where('no',$no)->first();
+      return response()->file(storage_path('app/exports/'.$ext->temp),["Content-Disposition"=>"inline; filename='{$ext->name}'"]);
+    }
+
     public function send(Request $req)
     {
       $this->validate($req,['req'=>'required|exists:user_dashboard_details,id'],['req.required'=>'Plase Select Position']);

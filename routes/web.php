@@ -47,8 +47,9 @@ Route::group(['prefix'=>'user','middleware'=>['auth','checktype']],function(){
   Route::get('approveu/aprovel/{value}','User\Manpowerreq@approvel')->name('approveu.aprovel');
   Route::get('candidate','User\CandidateSearch@index')->name('candidatesh.index');
   Route::post('candidate/search','User\CandidateSearch@search')->name('candidatesh.search');
-  Route::get('candidate/{id}','User\CandidateSearch@detail')->name('candidatesh.detail');
+  Route::get('candidate/detail/{id}','User\CandidateSearch@detail')->name('candidatesh.detail');
   Route::post('candidate/send','User\CandidateSearch@send')->name('candidatesh.send');
+  Route::get('candidate/atth_detail/{id}/{no}','User\CandidateSearch@getattech')->name('candidatesh.getimg');
 });
 
 Route::group(['prefix'=>'admin','middleware'=>['auth','checkuser']],function(){
@@ -72,10 +73,10 @@ Route::group(['prefix'=>'admin','middleware'=>['auth','checkuser']],function(){
   Route::resource('masterdata/faculty','Admin\Masterdata\faculty');
   Route::resource('setting/authorize','Admin\authorizect');
   Route::resource('setting/mailgroup','Admin\emailgroup');
-  Route::resource('setting/cannidate','Admin\cannidate');
+  /*Route::resource('setting/cannidate','Admin\cannidate');
   Route::delete('cannidate/file/{cannidate}','Admin\cannidate@delfile')->name('cannidate.delfile');
   Route::get('cannidate/detail/{cannidate}','Admin\cannidate@detail')->name('cannidate.detail');
-  Route::get('cannidate/history','Admin\cannidate@history')->name('cannidate.history');
+  Route::get('cannidate/history','Admin\cannidate@history')->name('cannidate.history');*/
   Route::resource('setting/approve','Admin\approve');
   Route::get('setting/approve/department/{funcid}','Admin\approve@indexfunc')->name('approve.indexfunc');
   Route::get('setting/approve/getdepartment/{partyid}','Admin\approve@getdepartment')->name('approve.getdepartment');

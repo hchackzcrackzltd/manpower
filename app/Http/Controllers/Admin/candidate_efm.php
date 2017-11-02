@@ -261,7 +261,7 @@ class candidate_efm extends Controller
     public function getattech(eform_form $id,$no)
     {
       $fm=$id->load('getfile');
-      $ext=$fm->getfile->where('type',1)->where('no',$no)->first();
+      $ext=$fm->getfile->where('no',$no)->first();
       return response()->file(storage_path('app/exports/'.$ext->temp),["Content-Disposition"=>"inline; filename='{$ext->name}'"]);
     }
 }
