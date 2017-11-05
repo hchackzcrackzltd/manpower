@@ -33,7 +33,7 @@ class dashboard extends Controller
 
     public function getdetail(user_dashboard_detail $dashboard){
       return view('admin.dashboard.detail',['fm'=>$dashboard,
-      'can'=>cannidate_interest::getinterestcannidate($dashboard->id)->get(),
+      'can'=>cannidate_interest::with(['getcandidate','getcandidate.gethisjob','getcandidate.getfile'])->allcan($dashboard)->get(),
       'apl'=>approve::withTrashed()->listapp([$dashboard->id,[1,3]])->get()
     ]);
     }

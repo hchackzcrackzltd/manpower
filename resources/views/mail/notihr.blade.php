@@ -3,11 +3,11 @@
 
 @component('template.mail.component.body')
   @slot('title_page','Manpower Request')
-  @slot('head','New Employee Request')
+  @slot('head','New Manpower Request')
   @component('template.mail.component.table')
     <tr>
       <td style="text-align:right" width='50%'>No: </td>
-      <td style="text-align:left">{{$data->id}}</td>
+      <td style="text-align:left">{{$data->docfm}}</td>
     </tr>
     <tr>
       <td style="text-align:right" width='50%'>Requestor: </td>
@@ -25,7 +25,7 @@
       <td style="text-align:left">{{$data->count}}</td>
     </tr>
     <tr>
-      <td style="text-align:right" width='50%'>Effecive: </td>
+      <td style="text-align:right" width='50%'>Effective: </td>
       <td style="text-align:left">{{$time::parse($data->effect_date)->format('d M Y')}}</td>
     </tr>
   @endcomponent

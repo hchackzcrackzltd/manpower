@@ -24,7 +24,7 @@
       </tr>
     @endforeach
     <tr>
-      <td style="text-align:right" width='50%'>Effecive: </td>
+      <td style="text-align:right" width='50%'>Effective: </td>
       <td style="text-align:left">{{$time::parse($data->effect_date)->format('d M Y')}}</td>
     </tr>
     <tr>

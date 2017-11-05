@@ -6,22 +6,22 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use App\Model\User\user_dashboard_detail;
+use App\Model\Masterdata\cannidate_interest;
 
-class noticn extends Mailable implements ShouldQueue
+class noticandiate_new extends Mailable
 {
     use Queueable, SerializesModels;
+
+    public $data;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-     public $data;
-
-    public function __construct(user_dashboard_detail $data)
+    public function __construct(cannidate_interest $data)
     {
-        $this->data=$data;
+        $this->data=$data->load(['getcandidate','getmanpower']);
     }
 
     /**
@@ -31,6 +31,6 @@ class noticn extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->subject('Reject Manpower Request')->view('mail.noticn');
+        return $this->subject('Interested Cannidate')->view('mail.notiintcannidate_new');
     }
 }

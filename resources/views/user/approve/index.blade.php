@@ -38,7 +38,7 @@
             @endphp
             @if (isset($value))
             <tr>
-              <td>{{$value->id}}</td>
+              <td>{{$value->docfm}}</td>
               <td>{{$value->position}}</td>
               <td><label class="label {{($value->status==='NP')?'label-default':'label-warning'}} ">
                 {{($data->approve==0)?'Wait for approve':$value->status_text}}
@@ -68,7 +68,7 @@
             @endphp
             @if (isset($valuernj))
             <tr>
-            <td>{{$valuernj->id}}</td>
+            <td>{{$valuernj->docfm}}</td>
             @php
               $rnjp=$user_text::find($valuernj->code);
             @endphp
@@ -126,7 +126,7 @@
             @endphp
             @if (isset($value))
             <tr>
-              <td>{{$value->id}}</td>
+              <td>{{$value->docfm}}</td>
               <td>{{$value->position}}</td>
               <td><label class="label label-success">Approved</label></td>
               <td><label class="label label-success">Manpower</label></td>
@@ -144,7 +144,7 @@
             @endphp
             @if (isset($valuernj))
             <tr>
-            <td>{{$valuernj->id}}</td>
+            <td>{{$valuernj->docfm}}</td>
             @php
               $rnjp=$user_text::find($valuernj->code);
             @endphp
@@ -190,7 +190,7 @@
             @endphp
             @if (isset($value))
             <tr>
-              <td>{{$value->id}}</td>
+              <td>{{$value->docfm}}</td>
               <td>{{$value->position}}</td>
               <td><label class="label label-danger">Reject</label></td>
               <td><label class="label label-success">Manpower</label></td>
@@ -277,7 +277,7 @@
 @section('script')
   <script>
     $(function() {
-      $('table').DataTable({
+      $('.table').DataTable({
         order: [[ 0, "desc" ]]
     });
       $('.table').on('click','.btn-desc', function(event) {

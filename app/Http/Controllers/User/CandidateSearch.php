@@ -6,11 +6,17 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Eform\eform_form;
 use App\Model\Eform\tagcandidate;
+use App\Model\Masterdata\cannidate_interest;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\noticandiate_new;
+use App\Model\Masterdata\employee;
+use App\Model\User\authorize;
 
 class CandidateSearch extends Controller
 {
     public function index()
     {
+      $this->authorize("accan",authorize::getau(4)->first());
         return view('user.candidate.index',['data'=>eform_form::with([
           'getposition'=>function($value)
           {
@@ -20,6 +26,7 @@ class CandidateSearch extends Controller
 
     public function search(Request $req)
     {
+      $this->authorize("accan",authorize::getau(4)->first());
       $this->validate($req, [
         'posit'=>'nullable|exists:eform.form_posits,id',
         'exp'=>'nullable|string',
@@ -42,6 +49,7 @@ class CandidateSearch extends Controller
 
     public function detail(eform_form $id)
     {
+      $this->authorize("accan",authorize::getau(4)->first());
       return view('user.candidate.candidate_detail',[
         'data'=>$id->load(['getposition','getbrosis','getedu','getfam','gethisjob','getlang',
         'gettrn','getfile']),
@@ -54,14 +62,24 @@ class CandidateSearch extends Controller
 
     public function getattech(eform_form $id,$no)
     {
+      $this->authorize("accan",authorize::getau(4)->first());
       $fm=$id->load('getfile');
       $ext=$fm->getfile->where('no',$no)->first();
       return response()->file(storage_path('app/exports/'.$ext->temp),["Content-Disposition"=>"inline; filename='{$ext->name}'"]);
     }
 
-    public function send(Request $req)
+    public function send(Request $req,eform_form $id)
     {
-      $this->validate($req,['req'=>'required|exists:user_dashboard_details,id'],['req.required'=>'Plase Select Position']);
+      $this->authorize("accan",authorize::getau(4)->first());
+      $this->validate($req,['req'=>"required|checkcanexist:{$id->id}|exists:user_dashboard_details,id"],['req.required'=>'Plase Select Position']);
+      $data=cannidate_interest::create([
+        'cannidate_id'=>$id->id,'user_id'=>auth()->user()->username,
+        'manpower_id'=>$req->req
+      ]);
+      $id->update([
+        'interest'=>$id->interest+1
+      ]);
+      Mail::to(employee::find(cannidate_interest::with('getmanpower')->find($data->id)->getmanpower->user_em_id))->send(new noticandiate_new($data));
       return redirect()->route('candidatesh.index')->with(['success'=>'Request Sended']);
     }
 }

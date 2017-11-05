@@ -6,9 +6,9 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use App\Model\User\user_dashboard_detail;
+use App\Model\User\user_resign_detail;
 
-class noticn extends Mailable implements ShouldQueue
+class notiapprovedrsg extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -18,8 +18,7 @@ class noticn extends Mailable implements ShouldQueue
      * @return void
      */
      public $data;
-
-    public function __construct(user_dashboard_detail $data)
+    public function __construct(user_resign_detail $data)
     {
         $this->data=$data;
     }
@@ -31,6 +30,6 @@ class noticn extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->subject('Reject Manpower Request')->view('mail.noticn');
+        return $this->subject('Approved Resign Request')->view('mail.notiapprovedrsg');
     }
 }

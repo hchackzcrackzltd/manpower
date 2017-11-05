@@ -41,6 +41,9 @@
       <i class="fa fa-file-text-o"></i> Form Request
     @endslot
     @slot('overlay',null)
+      <div class="col-xs-12 pull-right text-right">
+        <p class="text-muted">{{config('documentnum.DOCNUM_MP')}}</p>
+      </div>
     <form class="addreq" action="" method="post">
       {{csrf_field()}}
       <div class="nav-tabs-custom">
@@ -509,6 +512,14 @@
       </div>
       <!---------------------------------------------->
       </form>
+      <div class="row">
+        <div class="col-xs-6 col-lg-3">
+          <p class="text-muted">Issued date: {{config('documentnum.ISSUE_MP')}}</p>
+        </div>
+        <div class="col-xs-6 col-lg-3 pull-right text-right">
+          <p class="text-muted">{{config('documentnum.DOCNUM_MP_IN')}}</p>
+        </div>
+      </div>
   @endcomponent
 @endsection
 

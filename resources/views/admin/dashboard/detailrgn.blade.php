@@ -11,7 +11,6 @@
   </ul>
   <div class="tab-content">
     <div class="tab-pane fade" id="sec_1">
-      {{$fm->status}}
       @if (collect(['NJ','AJ','JC','SC'])->search($fm->status)>-1)
       <div class="row">
       <div class="col-xs-6 col-md-3">
@@ -30,7 +29,7 @@
           <div class="input-group">
             <span class="input-group-addon"><i class="fa fa-user"></i></span>
             @php
-              $user_txt=$user_text::find($fm->user_id);
+              $user_txt=$user_text::withoutGlobalScopes()->find($fm->user_id);
             @endphp
             <input type="text" class="form-control" value="{{(isset($user_txt))?$user_txt->fname_en.' '.$user_txt->lname_en:$fm->user_id}}" disabled>
           </div>
@@ -86,26 +85,6 @@
             <div class="input-group">
               <span class="input-group-addon"><i class="fa fa-comments"></i></span>
               <textarea class="form-control" rows="5" disabled>{{$fm->comment}}</textarea>
-            </div>
-          </div>
-        </div>
-        <div class="col-xs-12">
-          @php
-            if ($fm->rate<21) {
-              $text_bar='progress-bar-danger';
-            }elseif ($fm->rate<41) {
-            $text_bar='progress-bar-warning';
-          }elseif ($fm->rate<61) {
-            $text_bar='progress-bar-info';
-          }else {
-            $text_bar='progress-bar-success';
-          }
-          @endphp
-          <b>Score</b>
-          <div class="progress">
-            <div class="progress-bar progress-bar-striped active {{$text_bar}}" role="progressbar" aria-valuenow="{{$fm->rate}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$fm->rate}}%;">
-              <b>{{$fm->rate}}%</b>
-              <span class="sr-only">{{$fm->rate}}%</span>
             </div>
           </div>
         </div>

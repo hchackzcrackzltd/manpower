@@ -1,5 +1,4 @@
 @inject('user_text','App\Model\Masterdata\employee')
-@inject('time','Carbon\Carbon')
 @extends('template.mainuser')
 
 @section('titlepage','Request Status')
@@ -33,7 +32,7 @@
           <tbody>
             @foreach ($nj as $value)
               <tr>
-                <td>{{$value->id}}</td>
+                <td>{{$value->docfm}}</td>
                 <td>{{$value->position}}</td>
                 <td><label class="label {{($value->status==='NP')?'label-default':'label-warning'}} ">
                   {{($value->approve==0)?'Wait for approve':$value->status_text}}
@@ -56,7 +55,7 @@
             @endforeach
             @foreach ($rnj as $valuernj)
               <tr>
-              <td>{{$valuernj->id}}</td>
+              <td>{{$valuernj->docfm}}</td>
               @php
                 $rnjp=$user_text::find($valuernj->code);
               @endphp
@@ -108,7 +107,7 @@
           <tbody>
             @foreach ($aj as $value)
             <tr>
-              <td>{{$value->id}}</td>
+              <td>{{$value->docfm}}</td>
               <td>{{$value->position}}</td>
               @php
                 $user_txt=$user_text::find($value->user_em_id);
@@ -123,7 +122,7 @@
             @endforeach
             @foreach ($raj as $valueraj)
               <tr>
-              <td>{{$valueraj->id}}</td>
+              <td>{{$valueraj->docfm}}</td>
               @php
                 $rajp=$user_text::find($valueraj->code);
               @endphp
@@ -166,7 +165,7 @@
           <tbody>
             @foreach ($sc as $value)
             <tr>
-              <td>{{$value->id}}</td>
+              <td>{{$value->docfm}}</td>
               <td>{{$value->position}}</td>
               @php
                 $user_txt=$user_text::find($value->user_em_id);
@@ -182,7 +181,7 @@
             @endforeach
             @foreach ($rsc as $valuersc)
               <tr>
-              <td>{{$valuersc->id}}</td>
+              <td>{{$valuersc->docfm}}</td>
               @php
                 $rjcp=$user_text::find($valuersc->code);
               @endphp
@@ -224,7 +223,7 @@
           <tbody>
             @foreach ($cn as $value)
             <tr>
-              <td>{{$value->id}}</td>
+              <td>{{$value->docfm}}</td>
               <td>{{$value->position}}</td>
               <td><label class="label label-success">Manpower</label></td>
               <td>
@@ -237,7 +236,7 @@
             @endforeach
             @foreach ($rcn as $valuercn)
               <tr>
-              <td>{{$valuercn->id}}</td>
+              <td>{{$valuercn->docfm}}</td>
               @php
                 $rjcp=$user_text::find($valuercn->code);
               @endphp
@@ -303,7 +302,7 @@
 @section('script')
   <script>
     $(function() {
-      $('table').DataTable({
+      $('.table').DataTable({
         order: [[ 0, "desc" ]]
     });
       $('.table').on('click','.btn-desc', function(event) {
@@ -334,9 +333,6 @@
           console.error('Error Detail Load');
           location.reload(true);
         });
-      });
-      $('.fixe').on('click', function(event) {
-        alert('asd');
       });
       $('.ratting').barrating({
         theme: 'fontawesome-stars',

@@ -30,7 +30,7 @@
                       <label for="po">Position</label>
                       <div class="input-group">
                           <div class="input-group-addon"><i class="fa fa-briefcase"></i></div>
-                          <select name="posit" id="po" class="form-control">
+                          <select name="posit" id="po" class="form-control select">
                             @foreach ($ref_posit as $key => $value)
                               <option value="{{$value->id}}">{{$value->name}}</option>
                             @endforeach
@@ -43,7 +43,7 @@
                     <label for="sx">Sex</label>
                     <div class="input-group">
                         <div class="input-group-addon"><i class="fa fa-male"></i><i class="fa fa-female"></i></div>
-                        <select name="sex" id="sx" class="form-control">
+                        <select name="sex" id="sx" class="form-control select">
                             <option value="100">All</option>
                             <option value="0">นาย Mr.</option>
                             <option value="1">นาง Mrs.</option>
@@ -57,7 +57,7 @@
                           <label for="ed">Education</label>
                           <div class="input-group">
                               <div class="input-group-addon"><i class="fa fa-mortar-board"></i></div>
-                              <select name="edu[]" id="ed" class="form-control" multiple>
+                              <select name="edu[]" id="ed" class="form-control select" multiple>
                                 @foreach ($ref_edu as $value)
                                   <option value="{{$value->id}}">{{$value->name}}</option>
                                 @endforeach
@@ -142,7 +142,7 @@
                     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-center">
                         <div class="btn-group">
                             <a type="button" class="btn btn-primary" title="Detail" href="{{route('candidatesh.detail',['id'=>$value->id])}}" target="_blank"><i class="fa fa-file-text-o"></i></a>
-                            <button type="button" class="btn btn-success" title="Interest" data-toggle="modal" data-target='#job'>
+                            <button type="button" class="btn btn-success ints" title="Interest" data-toggle="modal" data-target='#job' data-id="{{$value->id}}">
                               <i class="fa fa-check"></i>
                             </button>
                         </div>
@@ -159,7 +159,7 @@
   </div>
   <div class="modal fade job" id="job" tabindex="-1" role="dialog" aria-labelledby="job" aria-hidden="true">
     <div class="modal-dialog modal-lg">
-      <form action="{{route('candidatesh.send')}}" method="POST">
+      <form action="" method="POST" id="intsf">
       <div class="modal-content">
         <div class="modal-header bg-primary">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -171,7 +171,8 @@
             <div class="form-group">
               <label for="reqf">Position List</label>
               <select class="form-control" name="req" id="reqf">
-                @forelse ($myjoblist->userown()->status('AJ') as $value)
+                <option disabled selected>Plase Select Position</option>
+                @forelse ($myjoblist->userown()->status('AJ')->get() as $value)
                   <option value="{{$value->id}}">{{$value->position}}</option>
                 @empty
                   <option disabled>No Request</option>
@@ -194,8 +195,12 @@
 @section('script')
   <script>
   $(function() {
-    $('select').select2({
+    $('.select').select2({
       placeholder:'Plase Select',
+      width:'100%'
+    });
+    $('#reqf').select2({
+      placeholder:'Plase Select Position',
       width:'100%'
     });
     $('#age').ionRangeSlider({
@@ -229,6 +234,9 @@
       max: 80,
       postfix: " Score",
       decorate_both: true
+    });
+    $('.ints').on('click', function(event) {
+      $('#intsf').attr('action', 'candidate/send/'+$(this).attr('data-id'));
     });
   });
   </script>

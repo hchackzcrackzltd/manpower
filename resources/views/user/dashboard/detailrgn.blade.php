@@ -29,7 +29,7 @@
           <div class="input-group">
             <span class="input-group-addon"><i class="fa fa-user"></i></span>
             @php
-              $user_txt=$user_text::find($fm->user_em_id);
+              $user_txt=$user_text::withoutGlobalScopes()->find($fm->user_em_id);
             @endphp
             <input type="text" class="form-control" value="{{(isset($user_txt))?$user_txt->fname_en.' '.$user_txt->lname_en:$fm->user_id}}" disabled>
           </div>
@@ -110,6 +110,19 @@
         </div>
       @endif
       </div>
+      @endif
+      @if (collect(['CN'])->search($fm->status)>-1)
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="form-group">
+              <label for="">Reason</label>
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-comment"></i></span>
+                <textarea class="form-control" rows="5" placeholder="No Reason" disabled>{{$fm->em_remark}}</textarea>
+              </div>
+            </div>
+          </div>
+        </div>
       @endif
     </div>
     <div class="tab-pane fade in active" id="sec_2">

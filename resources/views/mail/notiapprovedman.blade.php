@@ -2,8 +2,8 @@
 @inject('time','Carbon\Carbon')
 
 @component('template.mail.component.body')
-  @slot('title_page','Reject Request Manpower')
-  @slot('head','Reject Request Manpower')
+  @slot('title_page','Approved Request Manpower')
+  @slot('head','Approved Request Manpower')
   @component('template.mail.component.table')
     <tr>
       <td style="text-align:right" width='50%'>No: </td>

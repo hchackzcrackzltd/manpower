@@ -5,7 +5,6 @@
 @inject('ac','App\Model\Masterdata\acereq')
 @inject('user_text','App\Model\Masterdata\employee')
 @inject('offac','App\Model\Masterdata\offac')
-@inject('cannidate_attach','App\Model\Masterdata\cannidate_attach')
 
 <div class="nav-tabs-custom">
   <ul class="nav nav-tabs">
@@ -15,7 +14,7 @@
     <li><a href="#sec_4" data-toggle="tab"><i class="fa fa-check-circle"></i> Approve</a></li>
   @endif
     @if (collect(['AJ'])->search($fm->status)>-1)
-    <li><a href="#sec_3" data-toggle="tab"><i class="fa fa-users"></i> Candidate</a></li>
+    <li><a href="#sec_3" data-toggle="tab"><i class="fa fa-users"></i> Candidate Interested</a></li>
   @endif
   </ul>
   <div class="tab-content">
@@ -317,7 +316,7 @@
                     <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
                     <select class="form-control se-detail" multiple disabled>
                       @foreach (explode(',',$fm->edu_id) as $value)
-                        <option selected>{{$edu::where('id',$value)->first()->name}}</option>
+                        <option selected>{{$edu::withoutGlobalScopes()->where('id',$value)->first()->name}}</option>
                       @endforeach
                     </select>
                   </div>
@@ -330,7 +329,7 @@
                     <span class="input-group-addon"><i class="glyphicon glyphicon-book"></i></span>
                     <select class="form-control se-detail" multiple disabled>
                       @foreach (explode(',',$fm->fac_id) as $value)
-                        <option selected>{{$fac::where('id',$value)->first()->name}}</option>
+                        <option selected>{{$fac::withoutGlobalScopes()->where('id',$value)->first()->name}}</option>
                       @endforeach
                     </select>
                   </div>
@@ -403,7 +402,7 @@
                   <h4>Software</h4>
                   <ul>
                     @foreach (explode(',',$fm->sw) as $value)
-                      <li>{{$sw::where('id',$value)->first()->name}}</li>
+                      <li>{{$sw::withoutGlobalScopes()->where('id',$value)->first()->name}}</li>
                     @endforeach
                   </ul>
                 @endif
@@ -419,7 +418,7 @@
                   <h4>Accessories</h4>
                   <ul>
                     @foreach (explode(',',$fm->ac) as $value)
-                      <li>{{$ac::where('id',$value)->first()->name}}</li>
+                      <li>{{$ac::withoutGlobalScopes()->where('id',$value)->first()->name}}</li>
                     @endforeach
                   </ul>
                 @endif
@@ -489,28 +488,29 @@
     </div>
     @if (collect(['AJ'])->search($fm->status)>-1)
     <div class="tab-pane fade" id="sec_3">
-      <div class="table-responsive">
-        <table class="table table-condensed table-striped text-center can">
-          <thead>
-            <tr class="bg-info">
-              <th class="text-center">Name</th>
-              <th class="text-center">Resume</th>
-            </tr>
-          </thead>
-          <tbody>
-            @foreach ($can as $value)
-              <tr>
-                <td>{{$value->name_en}}</td>
-                <td>
-                  @foreach ($cannidate_attach::where('cannidate_id',$value->id)->get() as $valuee)
-                    <a href="{{route('cannidate.show',['cannidate'=>$valuee->id])}}" target="_blank" data-toggle="tooltip" title="Download/View Resume">
-                      <i class="fa fa-file-text-o"></i></a>&nbsp;&nbsp;
-                  @endforeach
-                </td>
-              </tr>
-            @endforeach
-          </tbody>
-        </table>
+      <div class="row">
+        @forelse ($can as $value)
+        <div class="col-xs-6 col-md-4 col-lg-3">
+          <div class="col-xs-12">
+            <a href="{{route('cannidate_new.detail',['id'=>$value->getcandidate->id])}}" target="_blank">
+            <img class="img-thumbnail" src="data:{{Storage::disk('local')->mimeType('exports/'.$value->getcandidate->getfile->where('type', 2)->first()->temp)}};base64,{{base64_encode(Storage::disk('local')->get('exports/'.$value->getcandidate->getFile->where('type', 2)->first()->temp))}}" alt="Picture Profile">
+            </a>
+          </div>
+          <div class="col-xs-12">
+            <a href="{{route('cannidate_new.detail',['id'=>$value->getcandidate->id])}}" target="_blank" class="btn btn-link">{{$value->getcandidate->nameeng}}</a>
+          </div>
+          <div class="col-xs-6 text-center">
+            <b>Age</b> <p>{{$value->getcandidate->age}}</p>
+          </div>
+          <div class="col-xs-6 text-center">
+            <b>Experience</b> <p>{{$value->getcandidate->gethisjob->sum('exp')}}</p>
+          </div>
+        </div>
+        @empty
+          <div class="col-xs-12 text-center">
+            <h4><i class="fa fa-question-circle"></i> No Candidate Select</h4>
+          </div>
+        @endforelse
       </div>
     </div>
     @endif

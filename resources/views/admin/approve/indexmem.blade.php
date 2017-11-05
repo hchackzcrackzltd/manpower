@@ -134,7 +134,7 @@
         });
       }
     });
-    $('table').on('click', '.delrow', function(event) {
+    $('.table').on('click', '.delrow', function(event) {
       tb.row($(this).parents('tr')).remove().draw();
     });
   });

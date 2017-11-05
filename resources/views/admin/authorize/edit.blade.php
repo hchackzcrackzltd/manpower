@@ -48,6 +48,8 @@
                 <label for="as">Assign Job</label>
                 <input type="checkbox" class="set" name="set[]" value="2" id="mj" {{(isset($data->getrole()->where(['menu'=>2,'is_admin'=>1])->first()->menu))?'checked':(($data->is_admin)?null:'disabled')}}>
                 <label for="mj">My Job</label>
+                <input type="checkbox" class="set" name="set[]" value="4" id="ac" {{(isset($data->getrole()->where(['menu'=>4,'is_admin'=>1])->first()->menu))?'checked':(($data->is_admin)?null:'disabled')}}>
+                <label for="ac">Candidate</label>
                 <input type="checkbox" class="set" name="set[]" value="3" id="st" {{(isset($data->getrole()->where(['menu'=>3,'is_admin'=>1])->first()->menu))?'checked':(($data->is_admin)?null:'disabled')}}>
                 <label for="st">Setting</label>
               </div>
@@ -61,6 +63,8 @@
                 <label for="rs">Resign</label>
                 <input type="checkbox" class="uset" name="uset[]" value="3" id="ap" {{(isset($data->getrole()->where(['menu'=>3,'is_admin'=>0])->first()->menu))?'checked':(($data->is_admin==0)?null:'disabled')}}>
                 <label for="ap">Approve</label>
+                <input type="checkbox" class="uset" name="uset[]" value="4" id="cd" {{(isset($data->getrole()->where(['menu'=>4,'is_admin'=>0])->first()->menu))?'checked':(($data->is_admin==0)?null:'disabled')}}>
+                <label for="cd">Candidate</label>
               </div>
             </div>
             <div class="col-xs-12 text-right">

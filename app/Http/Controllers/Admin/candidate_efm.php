@@ -26,16 +26,21 @@ use App\Model\Eform_ref\form_nation;
 use App\Model\Eform_ref\form_provin;
 use App\Model\Eform_ref\master_lang;
 use App\Model\Eform_ref\master_mstatuse;
+use App\Model\User\authorize;
+use Illuminate\Support\Facades\Auth;
 
 class candidate_efm extends Controller
 {
+
     public function index()
     {
+      $this->authorize("accanad",authorize::getau(4)->first());
       return view('admin.candidate.index_list',['data'=>eform_form::with('getposition')->status('OP')->get()]);
     }
 
     public function detail(eform_form $id)
     {
+      $this->authorize("accanad",authorize::getau(4)->first());
       return view('admin.candidate.candidate_detail',[
         'data'=>$id->load(['getposition','getbrosis','getedu','getfam','gethisjob','getlang',
         'gettrn','getfile']),
@@ -48,6 +53,7 @@ class candidate_efm extends Controller
 
     public function destroy(eform_form $id)
     {
+      $this->authorize("accanad",authorize::getau(4)->first());
       tagcandidate::where('form_id',$id->id)->delete();
       $id->update(['status_can'=>'CN']);
       return redirect()->route('cannidate_new.index')->with('success', 'Resume Close');
@@ -55,11 +61,13 @@ class candidate_efm extends Controller
 
     public function history()
     {
+      $this->authorize("accanad",authorize::getau(4)->first());
       return view('admin.candidate.list_history',['data'=>eform_form::with('getposition')->status('CN')->get()]);
     }
 
     public function destroy_his(eform_form $id)
     {
+      $this->authorize("accanad",authorize::getau(4)->first());
       tagcandidate::where('form_id',$id->id)->delete();
       $id->delete();
       return redirect()->route('cannidate_new.history')->with('success', 'Resume has deleted');
@@ -67,6 +75,7 @@ class candidate_efm extends Controller
 
     public function recover(eform_form $id)
     {
+      $this->authorize("accanad",authorize::getau(4)->first());
       tagcandidate::onlyTrashed()->where('form_id',$id->id)->restore();
       $id->update(['status_can'=>'OP']);
       return redirect()->route('cannidate_new.index')->with('success', 'Resume has restore');
@@ -74,6 +83,7 @@ class candidate_efm extends Controller
 
     public function create(Request $request)
     {
+      $this->authorize("accanad",authorize::getau(4)->first());
       $this->validate($request,['file_im'=>'required|file|mimes:zip'],['file_im.required'=>'Plase Insert File'
       ,'file_im.mimes'=>'Support Only ZIP',]);
       $folder=Carbon::now()->format('ymdhis');
@@ -260,6 +270,7 @@ class candidate_efm extends Controller
 
     public function getattech(eform_form $id,$no)
     {
+      $this->authorize("accanad",authorize::getau(4)->first());
       $fm=$id->load('getfile');
       $ext=$fm->getfile->where('no',$no)->first();
       return response()->file(storage_path('app/exports/'.$ext->temp),["Content-Disposition"=>"inline; filename='{$ext->name}'"]);

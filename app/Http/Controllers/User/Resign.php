@@ -26,6 +26,14 @@ class Resign extends Controller
     $id=rsn::withTrashed()->where('id', 'LIKE', Carbon::now()->format('ymd').'%')->max('id');
     return (isset($id))?$id+1:Carbon::now()->format('ymd').'001';
   }
+  /*------Document Number---------*/
+    protected function docnum()
+    {
+      $dt=Carbon::now();
+      $id=rsn::withTrashed()->whereYear('created_at', $dt->format('Y'))->whereMonth('created_at', $dt->format('m'))->max('docnum');
+      return (isset($id))?$id+1:1;
+    }
+    /*------Document Number---------*/
   protected function makeapprove(rsn $data)
   {
     $appraw=approve_func::getmydep(2)->first();
@@ -107,7 +115,7 @@ class Resign extends Controller
         $data=rsn::create([
         'id'=>$id,'user_id'=>$request->user()->username,'time_str'=>Carbon::now()->format('ymd'),
         'effect_date'=>$request->eft,'status'=>'NJ','remark'=>$request->rk,'code'=>$request->user,
-        'last_date'=>$request->lfw,'reason'=>$request->rsn,'approve'=>0
+        'last_date'=>$request->lfw,'reason'=>$request->rsn,'approve'=>0,'docnum'=>$this->docnum()
       ]);
         employee_resign::where('id', $request->user)->delete();
         if ($this->makeapprove($data)) {
@@ -125,7 +133,7 @@ class Resign extends Controller
         rsn::create([
         'id'=>$id,'user_id'=>$request->user()->username,'time_str'=>Carbon::now()->format('ymd'),
         'effect_date'=>$request->eft,'status'=>'NP','remark'=>$request->rk,'code'=>$request->user,
-        'last_date'=>$request->lfw,'reason'=>$request->rsn,'approve'=>0
+        'last_date'=>$request->lfw,'reason'=>$request->rsn,'approve'=>0,'docnum'=>$this->docnum()
       ]);
         employee_resign::where('id', $request->user)->delete();
         return redirect()->route('user_dashboard')->with('success', 'Request Sended');
@@ -227,7 +235,7 @@ class Resign extends Controller
         rsn::create([
         'id'=>$id,'user_id'=>$request->user()->username,'time_str'=>Carbon::now()->format('ymd'),
         'effect_date'=>$request->eft,'status'=>'NP','remark'=>$request->rk,'code'=>$resignreq->code,
-        'last_date'=>$request->lfw,'reason'=>$request->rsn,'approve'=>0
+        'last_date'=>$request->lfw,'reason'=>$request->rsn,'approve'=>0,'docnum'=>$this->docnum()
       ]);
         $resignreq->delete();
         employee_resign::where('id', $resignreq->code)->delete();
@@ -241,7 +249,7 @@ class Resign extends Controller
         $data=rsn::create([
         'id'=>$id,'user_id'=>$request->user()->username,'time_str'=>Carbon::now()->format('ymd'),
         'effect_date'=>$request->eft,'status'=>'NJ','remark'=>$request->rk,'code'=>$resignreq->code,
-        'last_date'=>$request->lfw,'reason'=>$request->rsn,'approve'=>0
+        'last_date'=>$request->lfw,'reason'=>$request->rsn,'approve'=>0,'docnum'=>$this->docnum()
       ]);
         $resignreq->delete();
         if ($this->makeapprove($data)) {

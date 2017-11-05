@@ -49,6 +49,8 @@
                 <label for="as">Assign Job</label>
                 <input type="checkbox" class="set" name="set[]" value="2" id="mj" disabled>
                 <label for="mj">My Job</label>
+                <input type="checkbox" class="set" name="set[]" value="4" id="ac" disabled>
+                <label for="ac">Candidate</label>
                 <input type="checkbox" class="set" name="set[]" value="3" id="st" disabled>
                 <label for="st">Setting</label>
               </div>
@@ -62,6 +64,8 @@
                 <label for="rs">Resign</label>
                 <input type="checkbox" class="uset" name="uset[]" value="3" id="ap" disabled>
                 <label for="ap">Approve</label>
+                <input type="checkbox" class="uset" name="uset[]" value="4" id="cd" disabled>
+                <label for="cd">Candidate</label>
               </div>
             </div>
             <div class="col-xs-12 text-right">
