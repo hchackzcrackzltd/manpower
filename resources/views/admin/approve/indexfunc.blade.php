@@ -82,7 +82,7 @@
 @section('script')
   <script>
   $(function() {
-    $('table').DataTable();
+    $('.table').DataTable();
     $('.btn-add').on('click', function(event) {
       $.get('{{route('approve.show',['approve'=>$func_id])}}').done(function(data) {
         $('.bodypdreq').html(data);

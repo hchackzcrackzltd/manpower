@@ -23,6 +23,7 @@ class CreateTagcandidatesTable extends Migration
             $table->integer('eq');
             $table->integer('iq');
             $table->integer('age');
+            $table->softDeletes();
         });
     }
 

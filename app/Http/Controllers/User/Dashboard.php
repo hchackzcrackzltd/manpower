@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Model\User\user_dashboard_detail as rorm;
 use App\Model\Masterdata\approve as apv;
 use App\Model\User\user_resign_detail;
-use App\Model\Masterdata\cannidate;
+use App\Model\Masterdata\cannidate_interest;
 
 class Dashboard extends Controller
 {
@@ -28,7 +28,7 @@ class Dashboard extends Controller
     public function getdetail(rorm $dashboard){
       return view('user.dashboard.detail',[
         'fm'=>$dashboard,
-        'can'=>cannidate::ucan($dashboard)->get(),
+        'can'=>cannidate_interest::with(['getcandidate','getcandidate.gethisjob','getcandidate.getfile'])->mycan($dashboard)->get(),
         'apl'=>apv::withTrashed()->listapp([$dashboard->id,[1,3]])->get()
       ]);
     }

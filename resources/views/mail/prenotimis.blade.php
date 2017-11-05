@@ -7,7 +7,7 @@
   @component('template.mail.component.table')
     <tr>
       <td style="text-align:right" width='50%'>No: </td>
-      <td style="text-align:left">{{$data->id}}</td>
+      <td style="text-align:left">{{$data->docfm}}</td>
     </tr>
     <tr>
       <td style="text-align:right" width='50%'>Requestor: </td>

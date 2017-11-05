@@ -23,6 +23,9 @@ use App\Mail\notiresignem;
 use App\Mail\noticnapprove;
 use App\Mail\noticnapproversg;
 use App\Model\Masterdata\mail_group;
+use App\Mail\notiapproved;
+use App\Mail\notiapprovedrsg;
+use App\Model\Masterdata\employee;
 
 class ApproveUser extends Controller
 {
@@ -50,6 +53,7 @@ class ApproveUser extends Controller
         case 1:
           reqfm::find($id)->update(['approve'=>1]);
           $daman=user_dashboard_detail::find($id);
+          Mail::to(employee::find($daman->user_id))->send(new notiapproved($daman));
           Mail::to(mail_group::find(1))->send(new notihr($daman));
           if ($daman->com_id>0) {
             Mail::to(mail_group::find(2))->send(new prenotimis($daman));
@@ -64,6 +68,7 @@ class ApproveUser extends Controller
         case 2:
             rsn::find($id)->update(['approve'=>1]);
             $darsg=user_resign_detail::find($id);
+            Mail::to(employee::find($darsg->user_id))->send(new notiapprovedrsg($darsg));
             Mail::to(mail_group::find(1))->send(new notiresign($darsg));
             Mail::to(mail_group::find(2))->send(new notiresignem($darsg));
             Mail::to(mail_group::find(3))->send(new notiresignem($darsg));
@@ -72,6 +77,7 @@ class ApproveUser extends Controller
         case 3:
             reqfm::find($id)->update(['approve'=>1]);
             $daman=user_dashboard_detail::find($id);
+            Mail::to(employee::find($daman->user_id))->send(new notiapproved($daman));
             Mail::to(mail_group::find(1))->send(new notihr($daman));
             if ($daman->com_id>0) {
               Mail::to(mail_group::find(2))->send(new prenotimis($daman));

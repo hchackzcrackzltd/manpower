@@ -116,7 +116,7 @@
 @section('script')
   <script>
     $(function() {
-      $('table').DataTable();
+      $('.table').DataTable();
       $('select').select2({
         placeholder:'Please Select Position',
         allowClear: true

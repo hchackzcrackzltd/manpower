@@ -16,7 +16,6 @@ class CreateCannidateInterestsTable extends Migration
         Schema::create('cannidate_interests', function (Blueprint $table) {
           $table->increments('id');
             $table->integer('cannidate_id');
-            $table->integer('position_id');
             $table->integer('manpower_id');
             $table->string('user_id');
             $table->timestamps();

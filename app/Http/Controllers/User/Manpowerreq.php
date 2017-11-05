@@ -38,6 +38,14 @@ class Manpowerreq extends Controller
     $id=reqfm::withTrashed()->where('id', 'LIKE', Carbon::now()->format('ymd').'%')->max('id');
     return (isset($id))?$id+1:Carbon::now()->format('ymd').'001';
   }
+/*------Document Number---------*/
+  protected function docnum()
+  {
+    $dt=Carbon::now();
+    $id=reqfm::withTrashed()->whereYear('created_at', $dt->format('Y'))->whereMonth('created_at', $dt->format('m'))->max('docnum');
+    return (isset($id))?$id+1:1;
+  }
+  /*------Document Number---------*/
   protected function makeapprove(reqfm $data,int $fid)
   {
     $appraw=approve_func::getmydep($fid)->first();
@@ -123,9 +131,8 @@ class Manpowerreq extends Controller
      */
     public function store(manpowerform $request)
     {
-        $id=$this->getidman();
         $data=reqfm::create([
-        'id'=>$id,'time_str'=>Carbon::now()->format('ymd'),
+        'id'=>$this->getidman(),'time_str'=>Carbon::now()->format('ymd'),
         'effect_date'=>$request->eed,'position_id'=>$request->posit,
         'rfm_id'=>$request->rfm,'ren_name'=>(isset($request->ren_name))?$request->ren_name:'',
         'jt_id'=>$request->jt,'tw_lead'=>(isset($request->tw_lead))?$request->tw_lead:0,
@@ -143,7 +150,7 @@ class Manpowerreq extends Controller
         'nmc'=>(isset($request->nmc))?implode(',',$request->nmc):'','ofa'=>(isset($request->ofa))?$request->ofa:'',
         'user_id'=>$request->user()->username,'status'=>'NJ','remark'=>$request->remark,'em_type'=>$request->type_em,
         'location'=>$request->locat,'company'=>$request->compa,'rfm_nfb'=>$request->rfm_nfb,'approve'=>0,
-        'imd_id'=>$request->imr,'rfm_emp_id'=>$request->rfm_trans
+        'imd_id'=>$request->imr,'rfm_emp_id'=>$request->rfm_trans,'docnum'=>$this->docnum()
       ]);
       if (isset($request->ren_name)) {
         employee_resign::onlyTrashed()->where('id', $request->ren_name)
@@ -257,9 +264,9 @@ class Manpowerreq extends Controller
         ->update(['replace'=>2]);
       }
       if ($request->rfm_id==2) {
-        $statapp=$this->makeapprove($request,3);
+        $statapp=$this->makeapprove($manpowerreq,3);
       }else {
-        $statapp=$this->makeapprove($request,1);
+        $statapp=$this->makeapprove($manpowerreq,1);
       }
       if ($statapp) {
           Mail::to(mail_group::find(1))->send(new notihr(user_dashboard_detail::find($manpowerreq->id)));
@@ -310,9 +317,8 @@ class Manpowerreq extends Controller
 
     public function save(manpowerform $request)
     {
-        $id=$this->getidman();
         reqfm::create([
-        'id'=>$id,'time_str'=>Carbon::now()->format('ymd'),
+        'id'=>$this->getidman(),'time_str'=>Carbon::now()->format('ymd'),
         'effect_date'=>$request->eed,'position_id'=>$request->posit,
         'rfm_id'=>$request->rfm,'ren_name'=>(isset($request->ren_name))?$request->ren_name:'',
         'jt_id'=>$request->jt,'tw_lead'=>(isset($request->tw_lead))?$request->tw_lead:0,
@@ -330,7 +336,7 @@ class Manpowerreq extends Controller
         'nmc'=>(isset($request->nmc))?implode(',',$request->nmc):'','ofa'=>(isset($request->ofa))?$request->ofa:'',
         'user_id'=>$request->user()->username,'status'=>'NP','remark'=>$request->remark,'em_type'=>$request->type_em,
         'location'=>$request->locat,'company'=>$request->compa,'rfm_nfb'=>$request->rfm_nfb,'approve'=>0,
-        'imd_id'=>$request->imr,'rfm_emp_id'=>$request->rfm_trans
+        'imd_id'=>$request->imr,'rfm_emp_id'=>$request->rfm_trans,'docnum'=>$this->docnum()
       ]);
         return redirect()->route('user_dashboard')->with('success', 'Request has been saved');
     }
@@ -364,9 +370,8 @@ class Manpowerreq extends Controller
 
     public function restore(manpowerform $request, reqfm $manpowerreq)
     {
-        $id=$this->getidman();
         $data=reqfm::create([
-        'id'=>$id,'time_str'=>Carbon::now()->format('ymd'),
+        'id'=>$this->getidman(),'time_str'=>Carbon::now()->format('ymd'),
         'effect_date'=>$request->eed,'position_id'=>$request->posit,
         'rfm_id'=>$request->rfm,'ren_name'=>(isset($request->ren_name))?$request->ren_name:'',
         'jt_id'=>$request->jt,'tw_lead'=>(isset($request->tw_lead))?$request->tw_lead:0,
@@ -384,7 +389,7 @@ class Manpowerreq extends Controller
         'nmc'=>(isset($request->nmc))?implode(',',$request->nmc):'','ofa'=>(isset($request->ofa))?$request->ofa:'',
         'user_id'=>$request->user()->username,'status'=>'NJ','remark'=>$request->remark,'em_type'=>$request->type_em,
         'location'=>$request->locat,'company'=>$request->compa,'rfm_nfb'=>$request->rfm_nfb,'approve'=>0,
-        'imd_id'=>$request->imr,'rfm_emp_id'=>$request->rfm_trans
+        'imd_id'=>$request->imr,'rfm_emp_id'=>$request->rfm_trans,'docnum'=>$this->docnum()
       ]);
         $manpowerreq->delete();
         if (isset($request->ren_name)) {
@@ -413,9 +418,8 @@ class Manpowerreq extends Controller
 
     public function resave(manpowerform $request, reqfm $manpowerreq)
     {
-        $id=$this->getidman();
         reqfm::create([
-        'id'=>$id,'time_str'=>Carbon::now()->format('ymd'),
+        'id'=>$this->getidman(),'time_str'=>Carbon::now()->format('ymd'),
         'effect_date'=>$request->eed,'position_id'=>$request->posit,
         'rfm_id'=>$request->rfm,'ren_name'=>(isset($request->ren_name))?$request->ren_name:'',
         'jt_id'=>$request->jt,'tw_lead'=>(isset($request->tw_lead))?$request->tw_lead:0,
@@ -433,7 +437,7 @@ class Manpowerreq extends Controller
         'nmc'=>(isset($request->nmc))?implode(',',$request->nmc):'','ofa'=>(isset($request->ofa))?$request->ofa:'',
         'user_id'=>$request->user()->username,'status'=>'NP','remark'=>$request->remark,'em_type'=>$request->type_em,
         'location'=>$request->locat,'company'=>$request->compa,'rfm_nfb'=>$request->rfm_nfb,'approve'=>0,
-        'imd_id'=>$request->imr,'rfm_emp_id'=>$request->rfm_trans
+        'imd_id'=>$request->imr,'rfm_emp_id'=>$request->rfm_trans,'docnum'=>$this->docnum()
       ]);
         $manpowerreq->delete();
         return redirect()->route('user_dashboard')->with('success', 'Request has been send');

@@ -108,7 +108,7 @@
 @section('script')
   <script>
   $(function() {
-    var tb=$('table').DataTable();
+    var tb=$('.table').DataTable();
     $('select').select2({width:'100%'});
     $('.addmem').on('submit', function(event) {
       event.preventDefault();
@@ -134,7 +134,7 @@
         });
       }
     });
-    $('table').on('click', '.delrow', function(event) {
+    $('.table').on('click', '.delrow', function(event) {
       tb.row($(this).parents('tr')).remove().draw();
     });
   });

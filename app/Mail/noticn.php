@@ -31,6 +31,6 @@ class noticn extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->subject('Cancel Request')->view('mail.noticn');
+        return $this->subject('Reject Manpower Request')->view('mail.noticn');
     }
 }

@@ -2,13 +2,12 @@
 @inject('time','Carbon\Carbon')
 
 @component('template.mail.component.body')
-  @slot('title_page','Fleet Card Request')
-  @slot('head',null)
-    <span style="font-size: 1.4em;text-decoration: underline #ff0000 solid;font-weight: 600;color:#ff0000">Cancel Request</span>
+  @slot('title_page','Reject Manpower Request')
+  @slot('head','Reject Manpower Request')
   @component('template.mail.component.table')
     <tr>
       <td style="text-align:right" width='50%'>No: </td>
-      <td style="text-align:left">{{$data->id}}</td>
+      <td style="text-align:left">{{$data->docfm}}</td>
     </tr>
     <tr>
       <td style="text-align:right" width='50%'>Requestor: </td>
@@ -25,5 +24,11 @@
       <td style="text-align:right" width='50%'>Total amount: </td>
       <td style="text-align:left">{{$data->count}}</td>
     </tr>
+  @endcomponent
+  @component('template.mail.component.button')
+    @slot('link')
+      {{route("user_dashboard")}}
+    @endslot
+    @slot('title_link','Click to HR-Manpower')
   @endcomponent
 @endcomponent

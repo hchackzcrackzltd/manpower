@@ -48,14 +48,16 @@
             @can('acrgn',$aursg)
               <li><a href="{{route('resignreq.index')}}"><i class="fa fa-user-times"></i> Resign Form</a></li>
             @endcan
+            @can('acapp',$auapp)
             <li>
-              @can('acapp',$auapp)
               <a href="{{route('approveu.index')}}" title="Approve"><i class="fa fa-check-circle"></i> Approve</span></a>
-              @endcan
             </li>
+            @endcan
+            @can('accan',$aucandi)
             <li>
               <a href="{{route('candidatesh.index')}}" title="Search Candidate"><i class="fa fa-users"></i> Candidate</span></a>
             </li>
+            @endcan
           </ul>
         </div>
         <!-- /.navbar-collapse -->

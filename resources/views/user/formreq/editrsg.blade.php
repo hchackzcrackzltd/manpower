@@ -41,6 +41,9 @@
     @slot('title')
       <i class="fa fa-file-text-o"></i> Form Request
     @endslot
+    <div class="col-xs-12 pull-right text-right">
+      <p class="text-muted">{{config('documentnum.DOCNUM_RS')}}</p>
+    </div>
     <form action="" method="post" id="fmrgn">
       {{csrf_field()}}
       {{method_field('PATCH')}}
@@ -125,6 +128,14 @@
         </div>
       </div>
       </form>
+      <div class="row">
+        <div class="col-xs-6 col-lg-3">
+          <p class="text-muted">Issued date: {{config('documentnum.ISSUE_RS')}}</p>
+        </div>
+        <div class="col-xs-6 col-lg-3 pull-right text-right">
+          <p class="text-muted">{{config('documentnum.DOCNUM_RS_IN')}}</p>
+        </div>
+      </div>
   @endcomponent
 @endsection
 

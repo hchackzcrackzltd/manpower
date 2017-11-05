@@ -30,7 +30,7 @@
           <tbody>
             @foreach ($nj as $value)
               <tr>
-                <td>{{$value->id}}</td>
+                <td>{{$value->docfm}}</td>
                 <td>{{$value->position}}</td>
                 @php
                   $user_txt=$user_text::find($value->user_id);
@@ -47,7 +47,7 @@
             @endforeach
             @foreach ($rnj as $valuernj)
               <tr>
-              <td>{{$valuernj->id}}</td>
+              <td>{{$valuernj->docfm}}</td>
               @php
                 $rnjp=$user_text::find($valuernj->user_id);
                 $rnjp2=$user_text::find($valuernj->code);
@@ -89,7 +89,7 @@
           <tbody>
             @foreach ($aj as $value)
             <tr>
-              <td>{{$value->id}}</td>
+              <td>{{$value->docfm}}</td>
               <td>{{$value->position}}</td>
               @php
                 $user_txt=$user_text::find($value->user_em_id);
@@ -106,7 +106,7 @@
             @endforeach
             @foreach ($raj as $valueraj)
               <tr>
-              <td>{{$valueraj->id}}</td>
+              <td>{{$valueraj->docfm}}</td>
               @php
               $rajp=$user_text::find($valueraj->code);
               @endphp
@@ -150,7 +150,7 @@
           <tbody>
             @foreach ($sc as $value)
             <tr>
-              <td>{{$value->id}}</td>
+              <td>{{$value->docfm}}</td>
               <td>{{$value->position}}</td>
               @php
                 $user_txt=$user_text::find($value->user_em_id);
@@ -166,7 +166,7 @@
             @endforeach
             @foreach ($rsc as $valuersc)
               <tr>
-              <td>{{$valuersc->id}}</td>
+              <td>{{$valuersc->docfm}}</td>
               @php
                 $rjcp=$user_text::find($valuersc->code);
               @endphp
@@ -212,7 +212,7 @@
 @section('script')
   <script>
     $(function() {
-      $('table').DataTable({
+      $('.table').DataTable({
         order: [[ 0, "desc" ]]
     });
       $('.table').on('click','.btn-desc', function(event) {

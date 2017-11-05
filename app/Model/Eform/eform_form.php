@@ -75,7 +75,7 @@ class eform_form extends Model
   "intf",
   "agg_data",
   "job_status",
-  "age","eq","iq","mbti",
+  "age","eq","iq","mbti",'interest','status_can',
     ];
 
     protected $dates=['deleted_at'];
@@ -118,5 +118,10 @@ class eform_form extends Model
     public function getfile()
     {
       return $this->hasMany(eform_file::class,'form_id');
+    }
+
+    public function scopeStatus($value,$data)
+    {
+      return $value->where('status_can',$data);
     }
 }

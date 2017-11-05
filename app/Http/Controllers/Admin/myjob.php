@@ -26,15 +26,18 @@ use App\Model\Misticket\logform;
 use App\Model\Misticket\logprob;
 use App\Mail\noticn;
 use App\Mail\noticnresign;
+use App\Model\User\authorize;
 
 class myjob extends Controller
 {
   public function getidmis(){
+    $this->authorize("acmjad",authorize::getau(2)->first());
     $id=logform::where('idjob','LIKE',Carbon::now()->format('ymd').'%')->max('idjob');
     return (isset($id))?$id+1:Carbon::now()->format('ymd').'001';
   }
 
   public function createticket(user_dashboard_detail $myjob){
+    $this->authorize("acmjad",authorize::getau(2)->first());
     $prob=null;
     $ace=$soft=[];
     $effdate=Carbon::parse($myjob->effect_date)->format('d m Y');
@@ -84,6 +87,7 @@ logprob::create([
   }
 
   public function createticketrsg(user_resign_detail $myjob){
+    $this->authorize("acmjad",authorize::getau(2)->first());
     $prob=null;
     $ace=$soft=[];
     $effdate=Carbon::parse($myjob->effect_date)->format('d m Y');
@@ -117,6 +121,7 @@ logprob::create([
      */
     public function index()
     {
+      $this->authorize("acmjad",authorize::getau(2)->first());
         return view('admin.myjob.index',[
           'aj'=>user_dashboard_detail::myjob()->whereIn('status',['AJ'])->get(),
           'sc'=>user_dashboard_detail::myjob()->whereIn('status',['SC'])->get(),
@@ -154,6 +159,7 @@ logprob::create([
      */
     public function show(req $myjob)
     {
+      $this->authorize("acmjad",authorize::getau(2)->first());
        $this->authorize('showmyjob', $myjob);
         return view('admin.myjob.personaldata',['data'=>$myjob]);
     }
@@ -239,7 +245,7 @@ logprob::create([
           'status'=>'CN'
         ]);
         Mail::to(User::where('username',$myjob->user_id)->first())->send(new noticn(user_dashboard_detail::find($myjob->id)));
-        $myjob->delete();
+        /*$myjob->delete();*/
         return redirect()->route('myjob.index')->with('success','Request Cancel');
     }
 
@@ -253,7 +259,7 @@ logprob::create([
         'status'=>'CN'
       ]);
       Mail::to(User::where('username',$myjob->user_id)->first())->send(new noticnresign(user_resign_detail::find($myjob->id)));
-      $myjob->delete();
+      /*$myjob->delete();*/
       return redirect()->route('myjob.index')->with('success','Request Cancel');
     }
 

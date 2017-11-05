@@ -2,6 +2,7 @@
 @section('titlepage','My Job')
 @section('munu_act3','active')
 @inject('user_text','App\Model\Masterdata\employee')
+@inject('carbon', 'Carbon\Carbon')
 
 @section('title_head')
   <i class="fa fa-briefcase"></i> My Job
@@ -34,7 +35,7 @@
           <tbody>
             @foreach ($aj as $value)
             <tr>
-              <td>{{$value->id}}</td>
+              <td>{{$value->docfm}}</td>
               <td>{{$value->position}}</td>
               @php
                 $user_txt=$user_text::find($value->user_id);
@@ -52,7 +53,7 @@
             @endforeach
             @foreach ($raj as $valueraj)
               <tr>
-              <td>{{$valueraj->id}}</td>
+              <td>{{$valueraj->docfm}}</td>
               @php
               $rajp=$user_text::find($valueraj->code);
               @endphp
@@ -97,7 +98,8 @@
           <tbody>
             @foreach ($sc as $value)
             <tr>
-              <td>{{$value->id}}</td>
+              <tr>
+                <td>{{$value->docfm}}</td>
               <td>{{$value->position}}</td>
               @php
                 $user_txt=$user_text::find($value->user_id);
@@ -113,7 +115,7 @@
             @endforeach
             @foreach ($rsc as $valuersc)
               <tr>
-              <td>{{$valuersc->id}}</td>
+              <td>{{$valuersc->docfm}}</td>
               @php
                 $rjcp=$user_text::find($valuersc->code);
               @endphp
@@ -169,7 +171,7 @@
 @section('script')
   <script>
     $(function() {
-      $('table').DataTable({
+      $('.table').DataTable({
         order: [[ 0, "desc" ]]
     });
       $('.table').on('click','.btn-desc', function(event) {

@@ -1,4 +1,3 @@
-@inject('posit','App\Model\Masterdata\position')
 @extends('template.admin.mainadmin')
 @section('titlepage','Candidate')
 @section('munu_act4','active')
@@ -21,14 +20,19 @@
           <i class="fa fa-list"></i> List of Candidate
         @endslot
         @slot('overlay',null)
-          @php
-            $no=1;
-          @endphp
           <div class="row">
-            <div class="col-xs-12">
-              <a class="btn btn-success" title="Add Candidate" data-toggle="tooltip" href="{{route('cannidate.create')}}">
-                <i class="fa fa-plus-circle"></i> ADD
-              </a><br><br>
+            <div class="col-xs-12 form-inline">
+              <form action="{{route('cannidate_new.create')}}" method="post" enctype="multipart/form-data">
+                {{csrf_field()}}
+                  <div class="form-group">
+                    <label for="fim">Insert File</label>
+                    <input type="file" class="form-control" name="file_im" id="fim" required>
+                  </div>
+                  <button type="submit" class="btn btn-success" title="Import Candidate From Application Form" data-toggle="tooltip">
+                    <i class="fa fa-download"></i> Import
+                  </button>
+                  <label class="label label-warning"><i class="fa fa-warning"></i> (Support File Export From Appplication Form Only)</label><br><br>
+                  </form>
             </div>
             <div class="col-xs-12">
               <div class="table-responsive">
@@ -38,7 +42,7 @@
                       <th class="text-center">#</th>
                       <th class="text-center">ชื่อ-นามสกุล</th>
                       <th class="text-center">Name</th>
-                      <th class="text-center">Department - Position</th>
+                      <th class="text-center">Position</th>
                       <th class="text-center">Interest</th>
                       <th class="text-center">Action</th>
                     </tr>
@@ -46,27 +50,25 @@
                   <tbody>
                     @foreach ($data as $value)
                     <tr>
-                      <td>{{$no++}}</td>
-                      <td>{{$value->name_th}}</td>
-                      <td>{{$value->name_en}}</td>
+                      <td>{{$loop->index+1}}</td>
+                      <td>{{$value->name}}</td>
+                      <td>{{$value->nameeng}}</td>
                       <td>
-                        @foreach (explode(',',$value->position) as $valuepo)
-                          {{$posit::find($valuepo)->department()->first()->name}} - {{$posit::find($valuepo)->name}}<br>
+                        @foreach ($value->getposition as $valuepo)
+                          {{$ref_posit->where('id', $valuepo->posit_id)->first()->name}},
                         @endforeach
+                        {{$value->etc_posit}}
                       </td>
                       <td><span class="badge">{{$value->interest}}</span></td>
                       <td>
-                        <form action="{{route('cannidate.destroy',['cannidate'=>$value->id])}}" method="post">
+                        <form action="{{route('cannidate_new.destroy',['id'=>$value->id])}}" method="post">
                           {{csrf_field()}}
                           {{method_field('DELETE')}}
                         <div class="btn-group">
-                          <button type="button" class="btn btn-info desc" title="Detail" data-toggle="modal" data-target=".detail" data-id="{{$value->id}}">
-                            <i class="fa fa-info-circle"></i>
-                          </button>
-                          <a class="btn btn-warning" title="Edit" href="{{route('cannidate.edit',['cannidate'=>$value->id])}}" data-toggle="tooltip">
-                            <i class="fa fa-pencil"></i>
+                          <a class="btn btn-info" title="Resume" target="_blank" href="{{route('cannidate_new.detail',['id'=>$value->id])}}" data-toggle="tooltip">
+                            <i class="fa fa-file-text-o"></i>
                           </a>
-                          <button type="submit" class="btn btn-danger" title="Delete Candidate" data-toggle="tooltip"><i class="fa fa-trash-o"></i></button>
+                          <button type="submit" class="btn btn-success" title="Candidate Select" data-toggle="tooltip"><i class="fa fa-check"></i></button>
                         </div>
                         </form>
                       </td>
@@ -81,40 +83,11 @@
     </div>
   </div>
 @endsection
-@component('template.component.model')
-  @slot('title')
-    <i class="fa fa-file-text-o"></i> Detail Candidate
-  @endslot
-  @slot('selector','detail')
-  @slot('footer',null)
-  @slot('bodysec','bodydesc')
-@endcomponent
 
 @section('script')
   <script>
   $(function(){
-    $('table').DataTable();
-    $('.table').on('click','.desc', function(event) {
-      var id=$(this).attr('data-id');
-      var table,selec,cp;
-      $.get('../cannidate/detail/'+id).done(function(data) {
-        $('.bodydesc').html(data);
-        if (typeof table!=='undefined') {
-          table.destroy();
-        }
-        if (typeof selec!=='undefined') {
-          selec.select2("destroy");
-        }
-        if (typeof cp!=='undefined') {
-          cp.destroy();
-        }
-        table=$('table').DataTable();
-        selec=$('.se2').select2({width:'100%'});
-        cp=new Clipboard('.btncp');
-      }).fail(function() {
-        console.log('Load Detail Error');
-      });
-    });
+    $('.table').DataTable();
   });
   </script>
 @endsection

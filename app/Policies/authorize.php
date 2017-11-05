@@ -27,4 +27,16 @@ class authorize
      {
        return $us->is_admin==0&&$data->menu==3;
      }
+     public function accan(User $us,audb $data)
+     {
+       return $us->is_admin==0&&$data->menu==4;
+     }
+     public function accanad(User $us,audb $data)
+     {
+       return $us->is_admin==1&&$data->menu==4;
+     }
+     public function acmjad(User $us,audb $data)
+     {
+       return $us->is_admin==1&&$data->menu==2;
+     }
 }
