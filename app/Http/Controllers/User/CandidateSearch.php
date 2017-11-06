@@ -5,7 +5,7 @@ namespace App\Http\Controllers\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Eform\eform_form;
-use App\Model\Eform\tagcandidate;
+use App\Model\Eform\tagcandidate_view;
 use App\Model\Masterdata\cannidate_interest;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\noticandiate_new;
@@ -37,7 +37,7 @@ class CandidateSearch extends Controller
         'iq'=>'nullable|string',
       ]);
       $id=[];
-      foreach (tagcandidate::tag($req->all())->get() as $value) {
+      foreach (tagcandidate_view::tag($req->all())->get() as $value) {
         $id[]=$value->form_id;
       }
       return view('user.candidate.index',['data'=>eform_form::with([
