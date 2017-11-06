@@ -31,7 +31,8 @@
                       <div class="input-group">
                           <div class="input-group-addon"><i class="fa fa-briefcase"></i></div>
                           <select name="posit" id="po" class="form-control select">
-                            @foreach ($ref_posit as $key => $value)
+                            <option value="49">All</option>
+                            @foreach ($ref_posit->whereNotIn('id',49) as $key => $value)
                               <option value="{{$value->id}}">{{$value->name}}</option>
                             @endforeach
                           </select>
@@ -53,10 +54,11 @@
           </div>
           <div class="col-xs-12">
                   <div class="form-group">
-                          <label for="ed">Education</label>
+                          <label for="ed">Degree</label>
                           <div class="input-group">
                               <div class="input-group-addon"><i class="fa fa-mortar-board"></i></div>
-                              <select name="edu[]" id="ed" class="form-control select" multiple>
+                              <select name="edu" id="ed" class="form-control select">
+                                <option value="0">All</option>
                                 @foreach ($ref_edu as $value)
                                   <option value="{{$value->id}}">{{$value->name}}</option>
                                 @endforeach
@@ -121,11 +123,11 @@
                     </div>
                     <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
                       <div class="col-xs-12">
-                          <b>Education:</b>
+                          <b>Degree:</b>
                         @forelse ($value->getedu as $edu)
                             <p>{{$ref_edu->where('id',$edu->edu_id)->first()->name}},</p>
                         @empty
-                          <p>No Education Data</p>
+                          <p>No Degree Data</p>
                         @endforelse
                       </div>
                       <div class="col-xs-12 col-md-6 col-lg-4">

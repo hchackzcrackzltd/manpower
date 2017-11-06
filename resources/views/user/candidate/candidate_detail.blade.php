@@ -23,6 +23,9 @@
     @endslot
     @slot('overlay','')
   <div class="row">
+    <div class="col-xs-12 text-right text-muted">
+      {{config('documentnum.DOCNUM_EF')}}
+    </div>
     <div class="col-xs-6">
       @if ($data->getfile->where('type', 2)->first())
         <img src="data:{{Storage::disk('local')->mimeType('exports/'.$data->getfile->where('type', 2)->first()->temp)}};base64,{{base64_encode(Storage::disk('local')->get('exports/'.$data->getFile->where('type', 2)->first()->temp))}}" alt="Picture Profile" class="img-circle col-xs-5"><br><br>
@@ -431,45 +434,45 @@
       <p class="h4">(Additional Information)</p>
   <hr>
   <div class="col-xs-12">
-    <p class="h5">ท่านมีใบขับขี่หรือไม่ ? (Do you hold a driving licence?):</p>
+    <b>ท่านมีใบขับขี่หรือไม่ ? (Do you hold a driving licence?):</b>
   </div>
   <div class="col-xs-12 col-md-6">
-    <p>รถยนต์ (Car)</p>
+    <b>รถยนต์ (Car)</b>
     <p>{{($data->drivli)?'มี Yes':'ไม่มี No'}}</p>
   </div>
   <div class="col-xs-12 col-md-6">
-    <p>มอเตอร์ไซด์ (Motorcycle)</p>
+    <b>มอเตอร์ไซด์ (Motorcycle)</b>
     <p>{{($data->moto)?'มี Yes':'ไม่มี No'}}</p>
   </div>
   <div class="col-xs-12">
-    <p class="h5">ท่านมีรถยนต์/มอเตอร์ไซค์ส่วนตัวที่สามารถนำมาใช้ในธุรกิจของบริษัทหรือไม่ ? (Do you have a car / motorcycle avialable for company business?):</p>
+    <b>ท่านมีรถยนต์/มอเตอร์ไซค์ส่วนตัวที่สามารถนำมาใช้ในธุรกิจของบริษัทหรือไม่ ? (Do you have a car / motorcycle avialable for company business?):</b>
   </div>
   @if(!empty($data->caru))
     <div class="col-xs-12 col-md-6">
-      <p>รถยนต์ (Car)</p>
+      <b>รถยนต์ (Car)</b>
       <p>มี Yes</p>
     </div>
   @endif
   @if(!empty($data->motou))
     <div class="col-xs-12 col-md-6">
-      <p>มอเตอร์ไซด์ (Motorcycle)</p>
+      <b>มอเตอร์ไซด์ (Motorcycle)</b>
       <p>มี Yes</p>
     </div>
   @endif
   <div class="col-xs-12">
-    <p class="h5">งานอดิเรก, กีฬาและกิจกรรมที่สนใจ (Present hobbies , sports , interest):</p>
+    <b>งานอดิเรก, กีฬาและกิจกรรมที่สนใจ (Present hobbies , sports , interest):</b>
   </div>
   <div class="col-xs-12">
     <p>{{(empty($data->freetm))?'ไม่ระบุ':$data->freetm}}</p>
   </div>
   <div class="col-xs-12">
-    <p class="h5">ท่านเป็นสมาชิกของสมาคมหรือองค์การอาชีพอะไร และมีตำแหน่งอะไร? (What associations or professional organizations are you a member of and what position do you hold?):</p>
+    <b>ท่านเป็นสมาชิกของสมาคมหรือองค์การอาชีพอะไร และมีตำแหน่งอะไร? (What associations or professional organizations are you a member of and what position do you hold?):</b>
   </div>
   <div class="col-xs-12">
     <p>{{(empty($data->frncm))?'ไม่ระบุ':$data->frncm}}</p>
   </div>
   <div class="col-xs-12">
-    <p class="h5">ท่านเคยป่วยหนักและเป็นโรคติดต่อร้ายแรงมาก่อนหรือไม่? (Have you ever been seriously ill or contacted with contagious disease?):</p>
+    <b>ท่านเคยป่วยหนักและเป็นโรคติดต่อร้ายแรงมาก่อนหรือไม่? (Have you ever been seriously ill or contacted with contagious disease?):</b>
   </div>
   <div class="col-xs-12">
     <p>{{($data->contagious_format)?'เคย Yes':'ไม่เคย No'}}</p>
@@ -481,7 +484,7 @@
     </div>
   @endif
   <div class="col-xs-12">
-    <p class="h5">ท่านมีคดีความถูกฟ้องร้องต่อศาล และหรืออยู่ในระหว่างพิจารณาคดี:</p>
+    <b>ท่านมีคดีความถูกฟ้องร้องต่อศาล และหรืออยู่ในระหว่างพิจารณาคดี:</b>
   </div>
   <div class="col-xs-12">
     <p>{{($data->law_format)?'มี Yes':'ไม่มี No'}}</p>
@@ -493,7 +496,7 @@
     </div>
   @endif
   <div class="col-xs-12">
-    <p class="h5">ท่านเคยต้องโทษคดีอาญาหรือคดีแพ่งหรือไม่:</p>
+    <b>ท่านเคยต้องโทษคดีอาญาหรือคดีแพ่งหรือไม่:</b>
   </div>
   <div class="col-xs-12">
     <p>{{($data->law2_format)?'เคย Yes':'ไม่เคย No'}}</p>
@@ -505,13 +508,13 @@
     </div>
   @endif
   <div class="col-xs-12">
-    <p class="h5">ท่านยินยอมให้ตรวจสอบประวัติ ตรวจหาสารเสพติดในร่างกายและตรวจร่างกายตามที่บริษัทเห็นสมควร:</p>
+    <b>ท่านยินยอมให้ตรวจสอบประวัติ ตรวจหาสารเสพติดในร่างกายและตรวจร่างกายตามที่บริษัทเห็นสมควร:</b>
   </div>
   <div class="col-xs-12">
     <p>{{($data->agb)?'ยินยอม / Agree':'ไม่ยินยอม / Disagree'}}</p>
   </div>
   <div class="col-xs-12">
-    <p class="h5">ท่านเคยสัมภาษณ์งานกับบริษัทนี้มาก่อนหรือไม่ ? (Have you ever interviewed with us before ?):</p>
+    <b>ท่านเคยสัมภาษณ์งานกับบริษัทนี้มาก่อนหรือไม่ ? (Have you ever interviewed with us before ?):</b>
   </div>
   <div class="col-xs-12">
     <p>{{($data->intv_format)?'มี Yes':'ไม่มี No'}}</p>
@@ -523,46 +526,46 @@
     </div>
   @endif
   <div class="col-xs-12">
-    <p class="h5">กรณีเร่งด่วน บุคคลที่สามารถติดต่อได้ ? (In case of emergency, please notify ?):</p>
+    <b>กรณีเร่งด่วน บุคคลที่สามารถติดต่อได้ ? (In case of emergency, please notify ?):</b>
   </div>
   <div class="col-xs-12">
-    <p>ชื่อ (Name)</p>
+    <b>ชื่อ (Name)</b>
     <p>{{(empty($data->emrcon_name))?'ไม่ระบุ':$data->emrcon_name}}</p>
   </div>
   <div class="col-xs-12">
-    <p>ที่อยู่ (Address)</p>
+    <b>ที่อยู่ (Address)</b>
     <p>{{(empty($data->emrcon_address))?'ไม่ระบุ':$data->emrcon_address}}</p>
   </div>
   <div class="col-xs-12 col-md-6">
-    <p>โทรศัพท์ (Tel. No.)</p>
+    <b>โทรศัพท์ (Tel. No.)</b>
     <p>{{(empty($data->emrcon_tel))?'ไม่ระบุ':$data->emrcon_tel}}</p>
   </div>
   <div class="col-xs-12 col-md-6">
-    <p>ความสัมพันธ์ (Relationship)</p>
+    <b>ความสัมพันธ์ (Relationship)</b>
     <p>{{(empty($data->emrcon_rel))?'ไม่ระบุ':$data->emrcon_rel}}</p>
   </div>
   <div class="col-xs-12">
-    <p class="h5">ท่านมีบุคคลที่รู้จัก ทำงานกับ ทำงานกับ Do Day Dream Plc. หรือไม่? (Do you have friends or relatives working with Do Day Dream Plc. ?):</p>
+    <b>ท่านมีบุคคลที่รู้จัก ทำงานกับ ทำงานกับ Do Day Dream Plc. หรือไม่? (Do you have friends or relatives working with Do Day Dream Plc. ?):</b>
   </div>
   <div class="col-xs-12">
     <p>{{($data->friends_format)?'มี Yes':'ไม่มี No'}}</p>
   </div>
   @if ($data->friends_format)
     <div class="col-xs-12">
-      <p>ถ้ามี กรุณาระบุชื่อ ? (If yes, Please give the names ?)</p>
+      <b>ถ้ามี กรุณาระบุชื่อ ? (If yes, Please give the names ?)</b>
       <p>{{(empty($data->fcn))?'ไม่ระบุ':$data->fcn}}</p>
     </div>
   @endif
   <div class="col-xs-12">
-    <p>เขียนชื่อ ที่อยู่ โทรศัพท์ และอาชีพของผู้ที่จะอ้างถึง 2 คน ที่รู้จักคุ้นเคยตัวท่านดี (List names, addresses, telephone and occupation of 2 references who know you.)</p>
+    <b>เขียนชื่อ ที่อยู่ โทรศัพท์ และอาชีพของผู้ที่จะอ้างถึง 2 คน ที่รู้จักคุ้นเคยตัวท่านดี (List names, addresses, telephone and occupation of 2 references who know you.)</b>
     <p>{{(empty($data->fcn2))?'ไม่ระบุ':$data->fcn2}}</p>
   </div>
   <div class="col-xs-12">
-    <p>ท่านจะมาเริ่มงานกับบริษัทฯได้เมื่อไรถ้ามีตำแหน่งให้ (วัน/เดือน/ปี) (When can you start working with us, If employed)</p>
+    <b>ท่านจะมาเริ่มงานกับบริษัทฯได้เมื่อไรถ้ามีตำแหน่งให้ (วัน/เดือน/ปี) (When can you start working with us, If employed)</b>
     <p>{{$carbon::parse($data->startwk)->format('d M Y')}}</p>
   </div>
   <div class="col-xs-12">
-    <p>กรุณาแนะนำตัวท่านเอง เพื่อให้บริษัทรู้จักตัวท่านดีขึ้น (Please provide any further informations about yourself which will allow company to know you better.)</p>
+    <b>กรุณาแนะนำตัวท่านเอง เพื่อให้บริษัทรู้จักตัวท่านดีขึ้น (Please provide any further informations about yourself which will allow company to know you better.)</b>
     <p>{{(empty($data->intf))?'ไม่ระบุ':$data->intf}}</p>
   </div>
     </div>
@@ -590,6 +593,12 @@
           </tbody>
         </table>
       </div>
+    </div>
+    <div class="col-xs-6 text-muted">
+      Issued date: {{config('documentnum.ISSUE_EF')}}
+    </div>
+    <div class="col-xs-6 text-right text-muted">
+      {{config('documentnum.DOCNUM_EF_IN')}}
     </div>
   </div>
   @endcomponent
