@@ -45,9 +45,8 @@
                         <div class="input-group-addon"><i class="fa fa-male"></i><i class="fa fa-female"></i></div>
                         <select name="sex" id="sx" class="form-control select">
                             <option value="100">All</option>
-                            <option value="0">นาย Mr.</option>
-                            <option value="1">นาง Mrs.</option>
-                            <option value="2">นางสาว Miss.</option>
+                            <option value="1">ผู้ชาย Man</option>
+                            <option value="2">ผู้หญิง Women</option>
                         </select>
                     </div>
                       </div>

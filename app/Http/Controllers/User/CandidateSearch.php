@@ -32,7 +32,7 @@ class CandidateSearch extends Controller
         'exp'=>'nullable|string',
         'edu.*'=>'nullable|exists:eform.master_edus,id',
         'age'=>'nullable|string',
-        'sex'=>'nullable|numeric|in:0,1,2,100',
+        'sex'=>'nullable|numeric|in:1,2,100',
         'eq'=>'nullable|string',
         'iq'=>'nullable|string',
       ]);
