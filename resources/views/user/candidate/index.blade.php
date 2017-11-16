@@ -109,8 +109,8 @@
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
                         <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                          @if ($value->getfile->first())
-                            <img src="data:{{Storage::disk('local')->mimeType('exports/'.$value->getfile->where('type', 2)->first()->temp)}};base64,{{base64_encode(Storage::disk('local')->get('exports/'.$value->getfile->where('type', 2)->first()->temp))}}" class="img-responsive img-thumbnail img-rounded" alt="Image">
+                          @if ($value->getfile->where('type', 2)->first())
+                              <img src="data:{{Storage::disk('local')->mimeType('exports/'.$value->getfile->where('type', 2)->first()->temp)}};base64,{{base64_encode(Storage::disk('local')->get('exports/'.$value->getfile->where('type', 2)->first()->temp))}}" class="img-responsive img-thumbnail img-rounded" alt="Image">
                           @else
                             <img src="{{asset('img/No_image_available.png')}}" class="img-responsive" alt="Image">
                           @endif
@@ -171,6 +171,39 @@
               {{csrf_field()}}
             <div class="form-group">
               <label for="reqf">Position List</label>
+              <select class="form-control" name="req" id="reqf">
+                <option disabled selected>Plase Select Position</option>
+                @forelse ($myjoblist->userown()->status('AJ')->get() as $value)
+                  <option value="{{$value->id}}">{{$value->position}}</option>
+                @empty
+                  <option disabled>No Request</option>
+                @endforelse
+              </select>
+              <p class="help-block">Plase Select Position Request To Notify HR</p>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+          <button type="submit" class="btn btn-success"><i class="fa fa-paper-plane"></i> Send</button>
+        </div>
+      </div>
+      </form>
+    </div>
+  </div>
+  <div class="modal fade share" id="share" tabindex="-1" role="dialog" aria-labelledby="share" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <form action="" method="POST">
+      <div class="modal-content">
+        <div class="modal-header bg-primary">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title"><i class="fa fa-tasks"></i>E-Mail </h4>
+        </div>
+        <div class="modal-body">
+          <div class="col-xs-12">
+              {{csrf_field()}}
+            <div class="form-group">
+              <label for="reqf">Select E-Mail</label>
               <select class="form-control" name="req" id="reqf">
                 <option disabled selected>Plase Select Position</option>
                 @forelse ($myjoblist->userown()->status('AJ')->get() as $value)

@@ -174,7 +174,7 @@ class approve extends Controller
     {
         $this->validate($request,[
           'function_id'=>'required|numeric|exists:functions,id',
-          'party'=>'required|string|exists:mysql.party,code|checkdpdup:function_id',
+          'party'=>'required|string|exists:mysql.party,code|checkdpdup:function_id,department',
           'department'=>'required|string|exists:mysql.departments,code'
         ]);
         $dep=department::where('code',$request->department)->first();

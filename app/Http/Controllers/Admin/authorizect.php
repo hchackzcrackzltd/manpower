@@ -21,7 +21,7 @@ class authorizect extends Controller
      */
     public function index()
     {
-        return view('admin.authorize.index',['data'=>User::all()]);
+        return view('admin.authorize.index',['data'=>User::withTrashed()->get()]);
     }
 
     /**
@@ -144,6 +144,13 @@ class authorizect extends Controller
     public function destroy(User $authorize)
     {
       $authorize->delete();
-      return redirect()->route('authorize.index')->with('success','User has been deleted');
+      return redirect()->route('authorize.index')->with('success','User has been disabled');
+    }
+
+    public function restore(Request $request)
+    {
+      $this->validate($request,['id'=>'required|exists:users,id'],['id.exists'=>'Not found user']);
+      User::onlyTrashed()->where('id',$request->id)->restore();
+      return redirect()->route('authorize.index')->with('success','User has been enable');
     }
 }

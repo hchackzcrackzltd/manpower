@@ -56,7 +56,7 @@ class CandidateSearch extends Controller
         'master_titlename'=>['นาย','นาง','นางสาว'],
         'master_titlenameeng'=>['Mr.','Mrs.','Miss.'],
         'master_mlitary'=>[1=>'เกณฑ์แล้ว Yes',2=>'ยังไม่เกณฑ์ No',3=>'ได้รับการยกเว้นเพราะ If exempted specify reason'],
-        'master_lang'=>['ไม่ได้เลย Poor','พอใช้  Fair','ดี  Good','ดีมาก Excellent']
+        'master_lang'=>['ไม่ได้ Poor','พอใช้  Fair','ดี  Good','ดีมาก Excellent']
         ]);
     }
 

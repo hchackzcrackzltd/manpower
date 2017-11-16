@@ -72,6 +72,7 @@ Route::group(['prefix'=>'admin','middleware'=>['auth','checkuser']],function(){
   Route::resource('masterdata/education','Admin\Masterdata\educaton');
   Route::resource('masterdata/faculty','Admin\Masterdata\faculty');
   Route::resource('setting/authorize','Admin\authorizect');
+  Route::patch('setting/authorize_restore','Admin\authorizect@restore')->name('authorize.restore');
   Route::resource('setting/mailgroup','Admin\emailgroup');
   /*Route::resource('setting/cannidate','Admin\cannidate');
   Route::delete('cannidate/file/{cannidate}','Admin\cannidate@delfile')->name('cannidate.delfile');

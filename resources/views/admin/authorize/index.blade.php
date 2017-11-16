@@ -45,18 +45,25 @@
                 <td>{{$value->name}}</td>
                 <td>{{($value->is_admin)?'Admin':'User'}}</td>
                 <td>
-                  <form action="{{route('authorize.destroy',['authorize'=>$value->id])}}" method="post">
+                  <form action="{{route('authorize.destroy',['authorize'=>$value->id])}}" method="post" name="delbtn{{$value->id}}" id="delbtn{{$value->id}}">
                     {{method_field('DELETE')}}
                     {{csrf_field()}}
+                    </form>
+                    <form action="{{route('authorize.restore')}}" method="post" name="rstbtn{{$value->id}}" id="rstbtn{{$value->id}}">
+                      {{method_field('PATCH')}}
+                      {{csrf_field()}}
+                      <input type="hide" name="id" value="{{$value->id}}" class="hide">
+                      </form>
                   <div class="btn-group">
-                  <a class="btn btn-warning" title="Setting Authorize" data-toggle="tooltip" href="{{route('authorize.edit',['authorize'=>$value->id])}}">
-                    <i class="fa fa-pencil"></i>
-                  </a>
-                  <button type="submit" class="btn btn-danger" title="Delete This User" data-toggle="tooltip">
-                    <i class="fa fa-trash-o"></i>
-                  </button>
+                    @if (empty($value->deleted_at))
+                      <a class="btn btn-warning" title="Setting Authorize" data-toggle="tooltip" href="{{route('authorize.edit',['authorize'=>$value->id])}}">
+                        <i class="fa fa-pencil"></i>
+                      </a>
+                      <button type="submit" class="btn btn-danger" data-toggle="tooltip" title="Delete" form="delbtn{{$value->id}}"><i class="fa fa-ban"></i></button>
+                    @else
+                      <button type="submit" class="btn btn-default" data-toggle="tooltip" title="Restore" form="rstbtn{{$value->id}}"><i class="fa fa-repeat"></i></button>
+                    @endif
                   </div>
-                  </form>
                 </td>
               </tr>
             @endforeach
