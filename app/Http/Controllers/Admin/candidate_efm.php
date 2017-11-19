@@ -275,4 +275,15 @@ class candidate_efm extends Controller
       $ext=$fm->getfile->where('no',$no)->first();
       return response()->file(storage_path('app/exports/'.$ext->temp),["Content-Disposition"=>"inline; filename='{$ext->name}'"]);
     }
+
+    public function updateiqeqmbti(Request $req)
+    {
+      $this->validate($req, [
+        'id'=>'required|exists:eform_forms,id',
+        'iq'=>'nullable|numeric|max:200|min:0',
+        'eq'=>'nullable|numeric|max:200|min:0',
+        'mbti'=>'nullable|string']);
+        eform_form::find($req->id)->update(['iq'=>$req->iq,'eq'=>$req->eq,'mbti'=>$req->mbti]);
+        return redirect()->route('cannidate_new.index')->with('success', 'Update Resume Success');
+    }
 }

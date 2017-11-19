@@ -109,7 +109,7 @@
           </div>
           <div class="col-xs-12">
             <b>ชื่อ-นามสกุล (Name-Surname)</b>
-            <p>{{(empty($data->fam_name))?'ไม่ระบุ':$data->fam_name}} {{(empty($data->fam_surname))?'ไม่ระบุ':$data->fam_surname}}</p>
+            <p>{{(empty($data->fam_name))?'ไม่ระบุ':$data->fam_name}}</p>
           </div>
           <div class="col-xs-12 col-md-4">
             <b>อายุ (Age)</b>
@@ -143,7 +143,7 @@
           </div>
           <div class="col-xs-12">
             <b>ชื่อ-นามสกุล (Name-Surname)</b>
-            <p>{{(empty($data->f_name))?'ไม่ระบุ':$data->f_name}} {{(empty($data->f_surname))?'ไม่ระบุ':$data->f_surname}}</p>
+            <p>{{(empty($data->f_name))?'ไม่ระบุ':$data->f_name}}</p>
           </div>
           <div class="col-xs-12 col-md-4">
             <b>อายุ (Age)</b>
@@ -167,7 +167,7 @@
           </div>
           <div class="col-xs-12">
             <b>ชื่อ-นามสกุล (Name-Surname)</b>
-            <p>{{(empty($data->m_name))?'ไม่ระบุ':$data->m_name}} {{(empty($data->m_surname))?'ไม่ระบุ':$data->m_surname}}</p>
+            <p>{{(empty($data->m_name))?'ไม่ระบุ':$data->m_name}}</p>
           </div>
           <div class="col-xs-12 col-md-4">
             <b>อายุ (Age)</b>

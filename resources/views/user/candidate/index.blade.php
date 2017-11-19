@@ -142,9 +142,12 @@
                     </div>
                     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-center">
                         <div class="btn-group">
-                            <a type="button" class="btn btn-primary" title="Detail" href="{{route('candidatesh.detail',['id'=>$value->id])}}" target="_blank"><i class="fa fa-file-text-o"></i></a>
+                            <a type="button" class="btn btn-primary" data-toggle="tooltip" title="Detail" href="{{route('candidatesh.detail',['id'=>$value->id])}}" target="_blank"><i class="fa fa-file-text-o"></i></a>
                             <button type="button" class="btn btn-success ints" title="Interest" data-toggle="modal" data-target='#job' data-id="{{$value->id}}">
                               <i class="fa fa-check"></i>
+                            </button>
+                            <button type="button" class="btn btn-info sharebtn" title="Share" data-toggle="modal" data-target='#share' data-url="{{route('candidatesh.detail',['id'=>$value->id])}}">
+                              <i class="fa fa-share-alt"></i>
                             </button>
                         </div>
                     </div>
@@ -193,32 +196,41 @@
   </div>
   <div class="modal fade share" id="share" tabindex="-1" role="dialog" aria-labelledby="share" aria-hidden="true">
     <div class="modal-dialog modal-lg">
-      <form action="" method="POST">
+      <form action="{{route('candidatesh.share')}}" method="POST">
       <div class="modal-content">
         <div class="modal-header bg-primary">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title"><i class="fa fa-tasks"></i>E-Mail </h4>
+          <h4 class="modal-title"><i class="fa fa-share-alt"></i> Share</h4>
         </div>
         <div class="modal-body">
           <div class="col-xs-12">
               {{csrf_field()}}
+              <div class="form-group">
+                <label for="link">Link</label>
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-link"></i></span>
+                  <input type="text" class="form-control" id="link" name="link" required readonly>
+                </div>
+              </div>
             <div class="form-group">
-              <label for="reqf">Select E-Mail</label>
-              <select class="form-control" name="req" id="reqf">
-                <option disabled selected>Plase Select Position</option>
-                @forelse ($myjoblist->userown()->status('AJ')->get() as $value)
-                  <option value="{{$value->id}}">{{$value->position}}</option>
-                @empty
-                  <option disabled>No Request</option>
-                @endforelse
-              </select>
-              <p class="help-block">Plase Select Position Request To Notify HR</p>
+              <label for="reqf">Please Choose E-Mail</label>
+              <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-envelope-o"></i></span>
+                <select class="form-control" name="emm[]" id="emm" multiple required>
+                  @forelse ($emm as $value)
+                    <option value="{{$value->code}}">{{$value->email_office}}</option>
+                  @empty
+                    <option disabled>No E-Mail</option>
+                  @endforelse
+                </select>
+              </div>
+              <p class="help-block">Plase Choose E-Mail To Share</p>
             </div>
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-          <button type="submit" class="btn btn-success"><i class="fa fa-paper-plane"></i> Send</button>
+          <button type="submit" class="btn btn-success"><i class="fa fa-share-alt"></i> Share</button>
         </div>
       </div>
       </form>
@@ -233,8 +245,8 @@
       placeholder:'Plase Select',
       width:'100%'
     });
-    $('#reqf').select2({
-      placeholder:'Plase Select Position',
+    $('#emm').select2({
+      placeholder:'E-Mail',
       width:'100%'
     });
     $('#age').ionRangeSlider({
@@ -257,7 +269,7 @@
       type: "double",
       grid: true,
       min: 0,
-      max: 80,
+      max: 200,
       postfix: " Score",
       decorate_both: true
     });
@@ -265,12 +277,15 @@
       type: "double",
       grid: true,
       min: 0,
-      max: 80,
+      max: 200,
       postfix: " Score",
       decorate_both: true
     });
     $('.ints').on('click', function(event) {
       $('#intsf').attr('action', 'candidate/send/'+$(this).attr('data-id'));
+    });
+    $('.sharebtn').on('click', function(event) {
+      $('#link').val($(this).attr('data-url'));
     });
   });
   </script>

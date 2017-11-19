@@ -69,6 +69,9 @@
                             <i class="fa fa-file-text-o"></i>
                           </a>
                           <button type="submit" class="btn btn-success" title="Candidate Select" data-toggle="tooltip"><i class="fa fa-check"></i></button>
+                          <button type="button" class="btn btn-warning upiqeqmbtibtn" data-toggle="modal" data-target=".iqeqmbti" title="Update IQ,EQ,MBTI" data-id='{{$value->id}}'>
+                            <i class="fa fa-pencil"></i>
+                          </button>
                         </div>
                         </form>
                       </td>
@@ -82,12 +85,61 @@
       @endcomponent
     </div>
   </div>
+  @component('template.component.model')
+    @slot('selector','iqeqmbti')
+    @slot('title')
+      <i class='fa fa-pencil'></i> Update Resume
+    @endslot
+    @slot('bodysec',null)
+    @slot('footer',null)
+      <form action="{{route('cannidate_new.iqeqmbti')}}" method="post">
+        {{csrf_field()}}
+        {{method_field('PATCH')}}
+        <input type="hidden" class="hide" name="id" id="iqeqmbti" required>
+      <div class="row">
+        <div class="col-xs-12 col-md-6 col-lg-4">
+          <div class="form-group">
+            <label for="iq">IQ</label>
+            <input type="number" min="0" max="200" class="form-control" name="iq" id="iq" placeholder="IQ Score">
+            <p class="help-block">Please Insert IQ Score.</p>
+          </div>
+        </div>
+        <div class="col-xs-12 col-md-6 col-lg-4">
+          <div class="form-group">
+            <label for="eq">EQ</label>
+            <input type="number" min="0" max="200" class="form-control" name="eq" id="eq" placeholder="EQ Score">
+            <p class="help-block">Please Insert EQ Score.</p>
+          </div>
+        </div>
+        <div class="col-xs-12 col-md-6 col-lg-4">
+          <div class="form-group">
+            <label for="mbti">MBTI</label>
+            <input type="text" class="form-control" id="mbti" name="mbti" placeholder="MBTI">
+            <p class="help-block">Please Insert MBTI.</p>
+          </div>
+        </div>
+        <div class="col-xs-12 text-right">
+          <div class="btn-group">
+            <button type="submit" class="btn btn-success" title="Save" data-togle="tooltip">
+              <i class="fa fa-floppy-o"></i> Save
+            </button>
+            <button type="reset" class="btn btn-danger" title="Reset" data-togle="tooltip">
+              <i class="fa fa-repeat"></i> Reset
+            </button>
+          </div>
+        </div>
+      </div>
+      </form>
+  @endcomponent
 @endsection
 
 @section('script')
   <script>
   $(function(){
     $('.table').DataTable();
+    $('.upiqeqmbtibtn').on('click', function(event) {
+      $('#iqeqmbti').val($(this).attr('data-id'));
+    });
   });
   </script>
 @endsection

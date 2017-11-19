@@ -9,8 +9,10 @@ use App\Model\Eform\tagcandidate_view;
 use App\Model\Masterdata\cannidate_interest;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\noticandiate_new;
+use App\Mail\candidate_share;
 use App\Model\Masterdata\employee;
 use App\Model\User\authorize;
+use App\Mail\test;
 
 class CandidateSearch extends Controller
 {
@@ -21,7 +23,7 @@ class CandidateSearch extends Controller
           'getposition'=>function($value)
           {
             $value->where('no',0);
-          },'getedu','gethisjob','getfile'])->get()]);
+          },'getedu','gethisjob','getfile'])->get(),'emm'=>employee::all()]);
     }
 
     public function search(Request $req)
@@ -81,5 +83,15 @@ class CandidateSearch extends Controller
       ]);
       Mail::to(employee::find(cannidate_interest::with('getmanpower')->find($data->id)->getmanpower->user_em_id))->send(new noticandiate_new($data));
       return redirect()->route('candidatesh.index')->with(['success'=>'Request Sended']);
+    }
+
+    public function share(Request $req)
+    {
+      $this->validate($req,['link'=>'required|url','emm'=>'required|array','emm.*'=>'required|exists:mysql.employee_com,id']);
+      foreach ($req->emm as $value) {
+        $usermailto=employee::find($value);
+      Mail::to($usermailto)->send(new candidate_share($usermailto,$req->link));
+      }
+      return redirect()->route('candidatesh.index')->with(['success'=>'Candidate Share']);
     }
 }

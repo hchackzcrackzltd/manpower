@@ -50,6 +50,7 @@ Route::group(['prefix'=>'user','middleware'=>['auth','checktype']],function(){
   Route::get('candidate/detail/{id}','User\CandidateSearch@detail')->name('candidatesh.detail');
   Route::post('candidate/send/{id}','User\CandidateSearch@send')->name('candidatesh.send');
   Route::get('candidate/atth_detail/{id}/{no}','User\CandidateSearch@getattech')->name('candidatesh.getimg');
+  Route::post('candidate/share','User\CandidateSearch@share')->name('candidatesh.share');
 });
 
 Route::group(['prefix'=>'admin','middleware'=>['auth','checkuser']],function(){
@@ -93,6 +94,7 @@ Route::group(['prefix'=>'admin','middleware'=>['auth','checkuser']],function(){
   Route::patch('setting/cannidate_new/history/{id}','Admin\candidate_efm@recover')->name('cannidate_new.history_rev');
   Route::delete('setting/cannidate_new/history/{id}','Admin\candidate_efm@destroy_his')->name('cannidate_new.history_del');
   Route::get('setting/cannidate_new/atth_detail/{id}/{no}','Admin\candidate_efm@getattech')->name('cannidate_new.getimg');
+  Route::patch('setting/cannidate_new/updateiqeqmbti','Admin\candidate_efm@updateiqeqmbti')->name('cannidate_new.iqeqmbti');
 });
 
 Auth::routes();
