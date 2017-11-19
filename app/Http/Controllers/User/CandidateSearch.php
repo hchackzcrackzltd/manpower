@@ -23,7 +23,7 @@ class CandidateSearch extends Controller
           'getposition'=>function($value)
           {
             $value->where('no',0);
-          },'getedu','gethisjob','getfile'])->get(),'emm'=>employee::all()]);
+          },'getedu','gethisjob','getfile'])->get(),'emm'=>employee::where('email','<>','')->get()]);
     }
 
     public function search(Request $req)
