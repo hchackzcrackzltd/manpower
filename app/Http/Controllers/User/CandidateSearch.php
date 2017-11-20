@@ -46,7 +46,8 @@ class CandidateSearch extends Controller
         'getposition'=>function($value)
         {
           $value->where('no',0);
-        },'getedu','gethisjob'])->whereIn('id',(count($id)>0)?$id:[0])->get()]);
+        },'getedu','gethisjob'])->whereIn('id',(count($id)>0)?$id:[0])->get(),
+      'emm'=>employee::where('email','<>','')->get()]);
     }
 
     public function detail(eform_form $id)
