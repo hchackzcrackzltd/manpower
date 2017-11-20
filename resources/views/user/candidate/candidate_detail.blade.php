@@ -33,8 +33,8 @@
         <img src="{{asset('img/No_image_available.png')}}" class="img-circle col-xs-5" alt="Picture">
       @endif
       <div class="col-xs-7 clearfix">
-        <p class="h3">{{(!empty($data->titlename))?'ไม่ระบุ':$master_titlename[$data->titlename]}}{{(empty($data->name))?'ไม่ระบุ':$data->name}}</p>
-        <p class="h4">{{(!empty($data->titlename))?'ไม่ระบุ':$master_titlenameeng[$data->titlename]}}{{(empty($data->nameeng))?'ไม่ระบุ':ucfirst($data->nameeng)}}</p>
+        <p class="h3">{{$master_titlename[$data->titlename]}}{{(empty($data->name))?'ไม่ระบุ':$data->name}}</p>
+        <p class="h4">{{$master_titlenameeng[$data->titlename]}}{{(empty($data->nameeng))?'ไม่ระบุ':ucfirst($data->nameeng)}}</p>
         <p><b>อายุ (Age):</b> {{(empty($data->birthdate))?'ไม่ระบุ':($carbon::now()->year)-($carbon::parse($data->birthdate)->year)}}</p>
       </div>
     </div>
