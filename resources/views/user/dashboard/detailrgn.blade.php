@@ -88,26 +88,6 @@
             </div>
           </div>
         </div>
-        <div class="col-xs-12">
-          @php
-            if ($fm->rate<21) {
-              $text_bar='progress-bar-danger';
-            }elseif ($fm->rate<41) {
-            $text_bar='progress-bar-warning';
-          }elseif ($fm->rate<61) {
-            $text_bar='progress-bar-info';
-          }else {
-            $text_bar='progress-bar-success';
-          }
-          @endphp
-          <b>Score</b>
-          <div class="progress">
-            <div class="progress-bar progress-bar-striped active {{$text_bar}}" role="progressbar" aria-valuenow="{{$fm->rate}}" aria-valuemin="0" aria-valuemax="100" style="width: {{$fm->rate}}%;">
-              <b>{{$fm->rate}}%</b>
-              <span class="sr-only">{{$fm->rate}}%</span>
-            </div>
-          </div>
-        </div>
       @endif
       </div>
       @endif
