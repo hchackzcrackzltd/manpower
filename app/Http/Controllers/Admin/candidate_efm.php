@@ -90,7 +90,7 @@ class candidate_efm extends Controller
       $request->file_im->storeAs('exports',$request->file_im->getClientOriginalName(),'local');
       Zipper::make(storage_path('app/exports/'.$request->file_im->getClientOriginalName()))->extractTo(storage_path("app/exports/{$folder}/"));
       //Storage::disk('local')->delete('exports/'.$request->file_im->getClientOriginalName());
-      $getdata=Excel::selectSheets('main','childens','positions','brosis','edu','hisjob','lang','trn','file')->load(storage_path("app/exports/{$folder}/export.xlsx"))->get();
+      $getdata=Excel::selectSheets('main','childens','positions','brosis','edu','hisjob','lang','trn','file','posit_master','educat_master','lang_master','religion_master','race_master','provin_master','nation_master')->load(storage_path("app/exports/{$folder}/export.xlsx"))->get();
       foreach ($getdata[0] as $data) {
         $positcl=[];$educl=[];$exp=0;
         $id=eform_form::create([
@@ -264,6 +264,41 @@ class candidate_efm extends Controller
           'form_id'=>$id->id,
           'age'=>$data->age
         ]);
+      }
+      foreach ($getdata[9] as $pomt) {
+        if(form_posit::where('id',intval($pomt->id))->count()===0){
+          form_posit::create(['name'=>$pomt->name]);
+        }
+      }
+      foreach ($getdata[10] as $pomt) {
+        if(master_edu::where('id',intval($pomt->id))->count()===0){
+          master_edu::create(['name'=>$pomt->name]);
+        }
+      }
+      foreach ($getdata[11] as $pomt) {
+        if(master_lang::where('id',intval($pomt->id))->count()===0){
+          master_lang::create(['name'=>$pomt->name]);
+        }
+      }
+      foreach ($getdata[12] as $pomt) {
+        if(form_relig::where('id',intval($pomt->id))->count()===0){
+          form_relig::create(['name'=>$pomt->name]);
+        }
+      }
+      foreach ($getdata[13] as $pomt) {
+        if(form_race::where('id',intval($pomt->id))->count()===0){
+          form_race::create(['name'=>$pomt->name]);
+        }
+      }
+      foreach ($getdata[14] as $pomt) {
+        if(form_provin::where('id',intval($pomt->id))->count()===0){
+          form_provin::create(['name'=>$pomt->name]);
+        }
+      }
+      foreach ($getdata[15] as $pomt) {
+        if(form_nation::where('id',intval($pomt->id))->count()===0){
+          form_nation::create(['name'=>$pomt->name]);
+        }
       }
       return redirect()->route('cannidate_new.index')->with('success', 'Import Resume Success');
     }

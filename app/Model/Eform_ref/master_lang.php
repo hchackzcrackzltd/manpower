@@ -7,4 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class master_lang extends Model
 {
     protected $connection='eform';
+    protected $fillable=['name'];
 }
